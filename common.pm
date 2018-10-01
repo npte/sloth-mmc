@@ -15,7 +15,7 @@ $Time[4]=$Time[4]+1;
 my $day=""; if ($Time[3] < 10) { $day = sprintf("%02d",$Time[3]); } else { $day = sprintf("%2d",$Time[3]); }
 my $mon=""; if ($Time[4] < 10) { $mon = sprintf("%02d",$Time[4]); } else { $mon = sprintf("%2d",$Time[4]); }
 MUD::logopen( sprintf ("./logs/$Char::my_name-%2d-$mon-$day.log", $Time[5]+1900 ) );
-setArenaStatus("ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT");
+setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
 
 
 
