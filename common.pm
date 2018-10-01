@@ -1962,8 +1962,10 @@ sub getArenaStatus {
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
 		if ((666 - $U::current_hp) > 200) {
+            echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = (666 - $U::current_hp) > 200, healup");
 		    healup()
 		} else {
+		    echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = (666 - $U::current_hp) < 200, go to start");
 		    CMD::cmd_disable("AUTORESPELL");
 		    CMD::cmd_enable("CHECKARENAENTER");
             setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
@@ -1977,12 +1979,15 @@ trig {
 	}
     if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
         if ((666 - $U::current_hp) > 100) {
+            echo("=== Saving items, ARENA_STATUS_FIGHTING: Hp = 666 - $U::current_hp > 100, healup");
             healup();
         } else {
             if ($U::current_mana > 200) {
+                echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana > 200, push button");
                 sendl("push button");
             } else {
-            setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
+                echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana < 200, wait for orb");
+                setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
                 sendl("sleep");
             }
         }
