@@ -1945,6 +1945,9 @@ sub healup {
             sendl("cast 'heal'");
         }
         sendl("save");
+	} else {
+	    setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
+	    sendl("slee");
 	}
 }
 
