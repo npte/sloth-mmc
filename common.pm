@@ -1946,7 +1946,7 @@ sub healup {
         }
         sendl("save");
 	} else {
-	    echo("HealUp: $U::current_mana < 43, wait for orb")
+	    echo("HealUp: $U::current_mana < 43, wait for orb");
 	    setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
 	    sendl("slee");
 	}
