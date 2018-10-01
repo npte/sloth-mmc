@@ -1,5 +1,7 @@
 ._*
 history.txt
 *.tmp
-logs/
 Char.pm
+
+logs/
+.idea/
