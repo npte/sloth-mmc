@@ -1908,8 +1908,9 @@ trig {
     echo("=== CharName $Char::my_name $1");
     if ($1 eq $Char::my_name) {
         sendl("sleep");
+    } else {
+        sendl("|\r\npull chain");
     }
-    sendl("|\r\npull chain");
 } "([A-Za-z]+) must wait ([0-9]+) minutes before being allowed back into the arena area", '2000n:CHECKARENAENTER';
 
 trig {
