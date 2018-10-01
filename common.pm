@@ -1950,7 +1950,7 @@ sub getArenaStatus {
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_EXIT_AFTER_ORB") {
-		if (666 - $U::current_hp) > 100) {
+		if ((666 - $U::current_hp) > 100) {
 		    healup()
 		} else {
 		    CMD::cmd_disable("AUTORESPELL");
