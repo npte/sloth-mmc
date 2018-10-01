@@ -1811,7 +1811,7 @@ trig { $U::target = "sinister"; sendl("cast 'firewind' $U::target") } 'A siniste
 trig { $U::target = "warrior"; sendl("cast 'firewind' $U::target") } 'A phantom warrior is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "fire"; sendl("cast 'firewind' $U::target") } 'A giant fire serpent is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "crab"; sendl("cast 'firewind' $U::target") } 'A giant land crab is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "owlbear"; sendl("cast 'firewind' $U::target") } 'An owlbear gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "owlbear"; sendl("cast 'acid blast' $U::target\r\ncast 'firewind' $U::target") } 'An owlbear gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "dragon"; sendl("cast 'firewind' $U::target") } 'A ferocious green dragon is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "abysmal"; sendl("cast 'firewind' $U::target") } 'An abysmal darkness is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "dragonitte"; sendl("cast 'firewind' $U::target") } 'An arrogant dragonitte gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1844,7 +1844,7 @@ trig {
 trig { sendl("cast 'thunder clap' $U::target"); } "You struggle with a giant undead octopus's tentacle, to no effect", '2000n-:ARENA0';
 trig { sendl("cast 'destruction' $U::target"); } " is blasted away", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "You failed to cast 'fireball'", '2000n-:ARENA0';
-trig { sendl("cast 'fireball' $U::target"); } "You throw a fireball", '2000n-:ARENA0';
+trig { sendl("cast 'fireball' $U::target"); } "^You throw a fireball", '2000n-:ARENA0';
 trig { sendl("cast 'thunder clap' $U::target"); } "You failed to cast 'thunder clap'", '2000n-:ARENA0';
 trig { sendl("cast 'thunder clap' $U::target"); } "Your thunder clap hits", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '2000n-:ARENA0';
