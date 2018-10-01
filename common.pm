@@ -1919,7 +1919,6 @@ trig {
 
 trig {
 	sendl("|");
-	sendl("save");
 	healup();
 } "(You received)|(Total exp for kill is)", '2000n-:ARENA0';
 
@@ -1940,7 +1939,7 @@ sub healup {
 	for (my $i = 0; $i < $heal; $i++) {
 		sendl("cast 'heal'");
 	}
-	sendl("bounce");
+	sendl("save");
 }
 
 sub setArenaStatus {
@@ -1967,6 +1966,7 @@ trig {
             sendl("pull chain");
             sendl("w");
 		    sendl("sleep");
+		    sendl("score");
 		}
 	}
     if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
@@ -1981,7 +1981,7 @@ trig {
             }
         }
     }
-} "BOIINNNNNNGG!", '2000n-:ARENA0';
+} "Saving Phase", '2000n-:ARENA0';
 
 
 __DATA__
