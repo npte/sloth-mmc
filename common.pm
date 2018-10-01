@@ -1825,6 +1825,7 @@ trig { $U::target = "poltergeist"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 
 
 trig { sendl("order followers assist Phase"); } "(hates your guts!)|(Your followers don't seem to be obeying you today)", '2000n-:ARENAASSIST';
 trig { sendl("cast 'destruction' $U::target"); } "You failed to cast 'destruction'", '2000n-:ARENA0';
+
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
         setArenaStatus("ARENA_STATUS_FIGHTING");
@@ -1833,9 +1834,12 @@ trig {
 		sendl("push button");
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+	    sendl("wake");
+		sendl("sta");
 		healup();
 	}
  } "A floating orb bathes you in blue light refreshing your energy", '2000n-:ARENA0';
+
 trig { sendl("cast 'thunder clap' $U::target"); } "You struggle with a giant undead octopus's tentacle, to no effect", '2000n-:ARENA0';
 trig { sendl("cast 'destruction' $U::target"); } " is blasted away", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "You failed to cast 'fireball'", '2000n-:ARENA0';
@@ -1847,15 +1851,16 @@ trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
-    CMD::cmd_disable("CHECKARENAENTER");
-    setArenaStatus("ARENA_STATUS_BUFFING");
+        CMD::cmd_disable("CHECKARENAENTER");
+        setArenaStatus("ARENA_STATUS_BUFFING");
 		sendl("cast 'wall of flesh'");
 	}
-  if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-    sendl("sleep");
-  }
+    if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+        sendl("sleep");
+    }
 	##CMD::cmd_enable("ARENAASSIST");
 } "A pedestal underfoot begins to swivel on its axis, moving you into the arena", '2000n-:ARENA0';
+
 trig { sendl("|\r\ncast 'wall of flesh'"); } "You failed to cast 'wall of flesh'", '2000n-:ARENA0';
 
 trig {
