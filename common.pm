@@ -416,7 +416,7 @@ trig {
 #PINGER
 hook {
 	Pinger::ping_proceed;
-	if ($U::checkarenaenter) {
+	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
 		sendl("wake\r\nstand\r\ncheck hourglass");
 	}
 } "tick";
@@ -1833,11 +1833,6 @@ trig {
 		sendl("push button");
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-		setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-		sendl("wake");
-		sendl("sta");
-		sendl("pull chain");
-		sendl("w");
 		healup();
 	}
  } "A floating orb bathes you in blue light refreshing your energy", '2000n-:ARENA0';
@@ -1918,14 +1913,15 @@ trig {
 
 trig {
 	sendl("|");
+	sendl("save");
 	healup();
 } "(You received)|(Total exp for kill is)", '2000n-:ARENA0';
 
 
 sub healup {
-	$rest = int ((681 - $U::current_hp) / 200);
-	$gheal = int ((681 - $U::current_hp - $rest * 200) / 150);
-	$heal = int ((681 - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
+	$rest = int ((666 - $U::current_hp) / 200);
+	$gheal = int ((666 - $U::current_hp - $rest * 200) / 150);
+	$heal = int ((666 - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
 	echo("restor $rest times");
 	echo("gheal $gheal times");
 	echo("heal $heal times");
@@ -1954,13 +1950,22 @@ sub getArenaStatus {
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_EXIT_AFTER_ORB") {
-		CMD::cmd_disable("AUTORESPELL");
-		CMD::cmd_enable("CHECKARENAENTER");
-    setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-		sendl("sleep");
+		if (666 - $U::current_hp) > 100 {
+		    healup()
+		} else {
+		    CMD::cmd_disable("AUTORESPELL");
+		    CMD::cmd_enable("CHECKARENAENTER");
+            setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
+            sendl("wake");
+            sendl("sta");
+            sendl("pull chain");
+            sendl("w");
+		    sendl("sleep");
+		}
+
 	}
   if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
-  	if ((681 - $U::current_hp) > 100) {
+  	if ((666 - $U::current_hp) > 100) {
   		healup();
   	} else {
   		if ($U::current_mana > 200) {
@@ -1972,6 +1977,7 @@ trig {
   	}
   }
 } "BOIINNNNNNGG!", '2000n-:ARENA0';
+
 
 __DATA__
 [tablist]
