@@ -1969,12 +1969,12 @@ sub healup {
 
 sub setArenaStatus {
   my $newStatus = $_[0];
-  echo("=== SET NEW STATUS: " + $newStatus);
+  echo("=== SET NEW STATUS: $newStatus");
   $U::ARENA_STATUS = $newStatus;
 }
 
 sub getArenaStatus {
-  echo("=== CURRENT STATUS: " + $U::ARENA_STATUS);
+  echo("=== CURRENT STATUS: $U::ARENA_STATUS");
   return $U::ARENA_STATUS;
 }
 
