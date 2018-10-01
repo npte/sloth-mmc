@@ -1815,6 +1815,7 @@ trig { $U::target = "owlbear"; sendl("cast 'firewind' $U::target") } 'An owlbear
 trig { $U::target = "dragon"; sendl("cast 'firewind' $U::target") } 'A ferocious green dragon is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "abysmal"; sendl("cast 'firewind' $U::target") } 'An abysmal darkness is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "dragonitte"; sendl("cast 'firewind' $U::target") } 'An arrogant dragonitte gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "follower"; sendl("cast 'firewind' $U::target") } 'A follower of Amathea is waiting for you on the other side\.', '2000n-:ARENA0';
 
 trig { $U::target = "swarm"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'thunder clap' $U::target") } 'A swarm of midges is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "guardian"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'thunder clap' $U::target") } 'A dark guardian is waiting for you on the other side\.', '2000n-:ARENA0';
