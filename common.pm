@@ -1833,7 +1833,7 @@ trig {
         setArenaStatus("ARENA_STATUS_FIGHTING");
 		sendl("wake");
 		sendl("sta");
-		sendl("push button");
+		healup();
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
 	    sendl("wake");
@@ -1928,22 +1928,24 @@ trig {
 
 
 sub healup {
-	$rest = int ((666 - $U::current_hp) / 200);
-	$gheal = int ((666 - $U::current_hp - $rest * 200) / 150);
-	$heal = int ((666 - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
-	echo("restor $rest times");
-	echo("gheal $gheal times");
-	echo("heal $heal times");
-	for (my $i = 0; $i < $rest; $i++) {
-		sendl("cast 'restoration'");
+    if ($U::current_mana > 43) {
+        $rest = int ((666 - $U::current_hp) / 200);
+        $gheal = int ((666 - $U::current_hp - $rest * 200) / 150);
+        $heal = int ((666 - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
+        echo("restor $rest times");
+        echo("gheal $gheal times");
+        echo("heal $heal times");
+        for (my $i = 0; $i < $rest; $i++) {
+            sendl("cast 'restoration'");
+        }
+        for (my $i = 0; $i < $gheal; $i++) {
+            sendl("cast 'greater heal'");
+        }
+        for (my $i = 0; $i < $heal; $i++) {
+            sendl("cast 'heal'");
+        }
+        sendl("save");
 	}
-	for (my $i = 0; $i < $gheal; $i++) {
-		sendl("cast 'greater heal'");
-	}
-	for (my $i = 0; $i < $heal; $i++) {
-		sendl("cast 'heal'");
-	}
-	sendl("save");
 }
 
 sub setArenaStatus {
