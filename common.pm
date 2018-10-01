@@ -1893,24 +1893,24 @@ trig {
 } "is mortally wounded, and will die soon, if not aided", '2000n-:ARENA0';
 
 trig {
-  if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
-    setArenaStatus("ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT");
-    sendl("e");
-  	sendl("pull chain");
-  }
+    if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
+        setArenaStatus("ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT");
+        sendl("e");
+        sendl("pull chain");
+    }
 } "The floor swivels, forcing you to leave the arena area", '2000n-:ARENA0';
 
 trig {
-	if ($1 eq $Char::my_name) {
-		sendl("sleep");
-	}
-  CMD::cmd_disable("CHECKARENAENTER");
-  sendl("|\r\npull chain");
-} "([A-Za-z]+) must wait ([0-9]+) minutes before being allowed back into the arena area", '2000n-:CHECKARENAENTER';
+    if ($1 eq $Char::my_name) {
+        sendl("sleep");
+    }
+    CMD::cmd_disable("CHECKARENAENTER");
+    sendl("|\r\npull chain");
+} "([A-Za-z]+) must wait ([0-9]+) minutes before being allowed back into the arena area", '2000n:CHECKARENAENTER';
 
 trig {
 	sendl("|\r\npull chain")
-} "No one is on the waiting list to enter the arena", '2000n-:CHECKARENAENTER';
+} "No one is on the waiting list to enter the arena", '2000n:CHECKARENAENTER';
 
 trig {
 	sendl("sleep")
