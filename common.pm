@@ -417,7 +417,7 @@ trig {
 hook {
 	Pinger::ping_proceed;
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
-		sendl("wake\r\nstand\r\ncheck hourglass\r\nsleep");
+		sendl("wake\r\nstand\r\ncheck hourglass");
 	}
 } "tick";
 
@@ -1905,15 +1905,15 @@ trig {
 } "The floor swivels, forcing you to leave the arena area", '2000n-:ARENA0';
 
 trig {
+    echo("=== CharName $Char::my_name $1");
     if ($1 eq $Char::my_name) {
         sendl("sleep");
     }
-    CMD::cmd_disable("CHECKARENAENTER");
     sendl("|\r\npull chain");
 } "([A-Za-z]+) must wait ([0-9]+) minutes before being allowed back into the arena area", '2000n:CHECKARENAENTER';
 
 trig {
-	sendl("|wake\r\nstand\r\npull chain")
+	sendl("|\r\npull chain")
 } "No one is on the waiting list to enter the arena", '2000n:CHECKARENAENTER';
 
 trig {
