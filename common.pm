@@ -1984,6 +1984,13 @@ trig {
 } "Saving items", '2000n-:ARENA0';
 
 
+trig {
+    CMD::cmd_disable("AUTORESPELL");
+    CMD::cmd_enable("CHECKARENAENTER");
+    setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
+} "Gladiator Pit Entrance Level Four", '2000n-:ARENA0';
+
+
 __DATA__
 [tablist]
 
