@@ -513,13 +513,13 @@ trig {CMD::cmd_tickset;Pinger::ping_proceed;} '^The lightning has stopped', "100
 trig {
 	#if ($U::sleeping eq 3) {sendl ("wake\r\nget food $U::food_container\r\neat food\r\nslee")}
 	#else {sendl ("get food $U::food_container\r\neat food")}
-	if ($U::ARENA_STATUS = "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
+	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
 		sendl ("wake\r\nstand\r\ncast 'create food'\r\nget food\r\neat food\r\nslee");
 	}
 } '^You are hungry', "n:FOOD";
 
 trig {
-	if ($U::ARENA_STATUS = "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
+	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
 		sendl ("wake\r\nstand\r\ncast 'create water' $Char::water_container\r\ndri $Char::water_container\r\nslee")
 	} else {
 		if ($U::sleeping eq 3) {
@@ -1853,13 +1853,13 @@ trig { $U::target = "poltergeist"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 
 trig { sendl("order followers assist Phase"); } "(hates your guts!)|(Your followers don't seem to be obeying you today)", '2000n-:ARENAASSIST';
 trig { sendl("cast 'destruction' $U::target"); } "You failed to cast 'destruction'", '2000n-:ARENA0';
 trig {
-	if ($U::ARENA_STATUS eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
-    $U::ARENA_STATUS = "ARENA_STATUS_FIGHTING";
+	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
+    setArenaStatus("ARENA_STATUS_FIGHTING");
 		sendl("wake");
 		sendl("sta");
 		sendl("push button");
 	}
-	if ($U::ARENA_STATUS eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
 		sendl("wake");
 		sendl("sta");
 		sendl("pull chain");
@@ -1877,12 +1877,12 @@ trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '200
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 
 trig {
-	if ($U::ARENA_STATUS eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
+	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
     CMD::cmd_disable("CHECKARENAENTER");
-    $U::ARENA_STATUS = "ARENA_STATUS_BUFFING";
+    setArenaStatus("ARENA_STATUS_BUFFING");
 		sendl("cast 'wall of flesh'");
 	}
-  if ($U::ARENA_STATUS eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+  if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
     sendl("sleep");
   }
 	##CMD::cmd_enable("ARENAASSIST");
@@ -1910,7 +1910,7 @@ trig {
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
-  $U::ARENA_STATUS = "ARENA_STATUS_FIGHTING";
+  setArenaStatus("ARENA_STATUS_FIGHTING");
 	sendl("push button");
 } "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
 
@@ -1919,8 +1919,8 @@ trig {
 } "is mortally wounded, and will die soon, if not aided", '2000n-:ARENA0';
 
 trig {
-  if ($U::ARENA_STATUS eq "ARENA_STATUS_FIGHTING") {
-    $U::ARENA_STATUS = "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT";
+  if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
+    setArenaStatus("ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT");
     sendl("e");
   	sendl("pull chain");
   }
@@ -1967,21 +1967,33 @@ sub healup {
 	sendl("bounce");
 }
 
+sub setArenaStatus {
+  my newStatus = $_[0];
+  echo("=== SET NEW STATUS: " + newStatus);
+  $U::ARENA_STATUS = newStatus;
+}
+
+sub getArenaStatus {
+  my newStatus = $_[0];
+  echo("=== CURRENT STATUS: " + $U::ARENA_STATUS);
+  return $U::ARENA_STATUS;
+}
+
 trig {
-	if ($U::ARENA_STATUS eq "ARENA_STATUS_EXIT_AFTER_ORB") {
+	if (getArenaStatus() eq "ARENA_STATUS_EXIT_AFTER_ORB") {
 		CMD::cmd_disable("AUTORESPELL");
 		CMD::cmd_enable("CHECKARENAENTER");
-    $U::ARENA_STATUS = "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT";
+    setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
 		sendl("sleep");
 	}
-  if ($U::ARENA_STATUS eq "ARENA_STATUS_FIGHTING") {
+  if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
   	if ((681 - $U::current_hp) > 100) {
   		healup();
   	} else {
   		if ($U::current_mana > 200) {
   			sendl("push button");
   		} else {
-        $U::ARENA_STATUS = "ARENA_STATUS_FIGHT_AFTER_ORB";
+        setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
   			sendl("sleep");
   		}
   	}
