@@ -139,100 +139,6 @@ new_sv($U::ac,20);
 new_svy($spells,1);
 new_svy($mode_keys,2);
 
-
-
-timeout {
- my @Time = localtime;
- my @SlothTime = localtime;
-
-#sec min hours day mesiac god wday
-#0   1   2     3   4    5   6
-
- @ndays = ( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-
- if ( $SlothTime[2] >= $timeoffset ) {
-      $SlothTime[2] = $SlothTime[2] - $timeoffset;
- } else {
-      $SlothTime[2] = 23 + $SlothTime[2] + 1 - $timeoffset;
-      if ($SlothTime[6]  > 0 ) {
-          $SlothTime[6] = $SlothTime[6] - 1;
-      } else {
-          $SlothTime[6] = 6;
-      };
-      if ( $SlothTime[4]  > 0 ) {
-           $SlothTime[4] = $SlothTime[4] - 1;
-      } else {
-           $SlothTime[4] = 11; $SlothTime[5] = $SlothTime[5] - 1;
-      };
-      if ($SlothTime[3]  > 1 ) {
-          $SlothTime[3] = $SlothTime[3] - 1;
-      } else {
-          $SlothTime[3] = $ndays[$SlothTime[4]];
-      };
- };
-
- if ($Time[6] == 0) {$wday = "Sun";};
- if ($Time[6] == 1) {$wday = "Mon";};
- if ($Time[6] == 2) {$wday = "Tue";};
- if ($Time[6] == 3) {$wday = "Wed";};
- if ($Time[6] == 4) {$wday = "Thu";};
- if ($Time[6] == 5) {$wday = "Fri";};
- if ($Time[6] == 6) {$wday = "Sat";};
-
- if ($Time[4] == 0)  {$mon = "Jan";};
- if ($Time[4] == 1)  {$mon = "Feb";};
- if ($Time[4] == 2)  {$mon = "Mar";};
- if ($Time[4] == 3)  {$mon = "Thu";};
- if ($Time[4] == 4)  {$mon = "Fri";};
- if ($Time[4] == 5)  {$mon = "Sat";};
- if ($Time[4] == 6)  {$mon = "Sun";};
- if ($Time[4] == 7)  {$mon = "Mon";};
- if ($Time[4] == 8)  {$mon = "Tue";};
- if ($Time[4] == 9)  {$mon = "Wed";};
- if ($Time[4] == 10) {$mon = "Thu";};
- if ($Time[4] == 11) {$mon = "Fri";};
-
- my $min = ''; if ($Time[1] < 10) { $min = sprintf("%02d",$Time[1]); } else { $min = sprintf("%2d",$Time[1]); }
- my $hou = ''; if ($Time[2] < 10) { $hou = sprintf("%02d",$Time[2]); } else { $hou = sprintf("%2d",$Time[2]); }
- my $day = ''; if ($Time[3] < 10) { $day = sprintf("%02d",$Time[3]); } else { $day = sprintf("%2d",$Time[3]); }
-
- $clock = sprintf("[$wday $mon $day $hou:$min %2d]", $Time[5]+1900);
-
- if ($SlothTime[6] == 0) {$wday = "Sun";};
- if ($SlothTime[6] == 1) {$wday = "Mon";};
- if ($SlothTime[6] == 2) {$wday = "Tue";};
- if ($SlothTime[6] == 3) {$wday = "Wed";};
- if ($SlothTime[6] == 4) {$wday = "Thu";};
- if ($SlothTime[6] == 5) {$wday = "Fri";};
- if ($SlothTime[6] == 6) {$wday = "Sat";};
-
- if ($SlothTime[4] == 0)  {$mon = "Jan";};
- if ($SlothTime[4] == 1)  {$mon = "Feb";};
- if ($SlothTime[4] == 2)  {$mon = "Mar";};
- if ($SlothTime[4] == 3)  {$mon = "Thu";};
- if ($SlothTime[4] == 4)  {$mon = "Fri";};
- if ($SlothTime[4] == 5)  {$mon = "Sat";};
- if ($SlothTime[4] == 6)  {$mon = "Sun";};
- if ($SlothTime[4] == 7)  {$mon = "Mon";};
- if ($SlothTime[4] == 8)  {$mon = "Tue";};
- if ($SlothTime[4] == 9)  {$mon = "Wed";};
- if ($SlothTime[4] == 10) {$mon = "Thu";};
- if ($SlothTime[4] == 11) {$mon = "Fri";};
-
- if ($SlothTime[1] < 10) { $min = sprintf("%02d",$SlothTime[1]); } else { $min = sprintf("%2d",$SlothTime[1]); }
- if ($SlothTime[2] < 10) { $hou = sprintf("%02d",$SlothTime[2]); } else { $hou = sprintf("%2d",$SlothTime[2]); }
- if ($SlothTime[3] < 10) { $day = sprintf("%02d",$SlothTime[3]); } else { $day = sprintf("%2d",$SlothTime[3]); }
-
- $clock1 = sprintf("[$wday $mon $day $hou:$min %2d]", $SlothTime[5]+1900);
- $day_status = "[          ]";
- if ($SlothTime[3] == 5 )  { $day_status = "[Fast Repop]"; };
- if ($SlothTime[3] == 19 ) { $day_status = "[Fast Repop]"; };
- if ($SlothTime[3] == 2 )  { $day_status = "[  No Cap  ]"; };
- if ($SlothTime[3] == 16 ) { $day_status = "[  No Cap  ]"; };
- if ($SlothTime[3] == 9 )  { $day_status = "[  Fargate ]"; };
- if ($SlothTime[3] == 23 ) { $day_status = "[  Fargate ]"; };
- } 1000;
-
 ### ���������� ����������.
 my $loot = 0;
 # off, coins, all, greedy
@@ -1947,13 +1853,13 @@ trig { $U::target = "poltergeist"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 
 trig { sendl("order followers assist Phase"); } "(hates your guts!)|(Your followers don't seem to be obeying you today)", '2000n-:ARENAASSIST';
 trig { sendl("cast 'destruction' $U::target"); } "You failed to cast 'destruction'", '2000n-:ARENA0';
 trig {
-	if ($U::ARENA_STATUS == "ARENA_STATUS_FIGHT_AFTER_ORB") {
+	if ($U::ARENA_STATUS eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
     $U::ARENA_STATUS = "ARENA_STATUS_FIGHTING";
 		sendl("wake");
 		sendl("sta");
 		sendl("push button");
 	}
-	if ($U::ARENA_STATUS == "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+	if ($U::ARENA_STATUS eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
 		sendl("wake");
 		sendl("sta");
 		sendl("pull chain");
@@ -1971,12 +1877,12 @@ trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '200
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 
 trig {
-	if ($U::ARENA_STATUS == "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
+	if ($U::ARENA_STATUS eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
     CMD::cmd_disable("CHECKARENAENTER");
     $U::ARENA_STATUS = "ARENA_STATUS_BUFFING";
 		sendl("cast 'wall of flesh'");
 	}
-  if ($U::ARENA_STATUS == "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+  if ($U::ARENA_STATUS eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
     sendl("sleep");
   }
 	##CMD::cmd_enable("ARENAASSIST");
@@ -2013,7 +1919,7 @@ trig {
 } "is mortally wounded, and will die soon, if not aided", '2000n-:ARENA0';
 
 trig {
-  if ($U::ARENA_STATUS == "ARENA_STATUS_FIGHTING") {
+  if ($U::ARENA_STATUS eq "ARENA_STATUS_FIGHTING") {
     $U::ARENA_STATUS = "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT";
     sendl("e");
   	sendl("pull chain");
@@ -2021,18 +1927,11 @@ trig {
 } "The floor swivels, forcing you to leave the arena area", '2000n-:ARENA0';
 
 trig {
-	if ($1 ne $Char::my_name) {
-		$U::checkarenaenter = 0;
-		CMD::cmd_disable("CHECKARENAENTER");
-		sendl("|\r\npull chain");
-	}
 	if ($1 eq $Char::my_name) {
-		if ($2 eq "2") {
-			sendl("cast 'ban'");
-			sendl("cast 'summon undead' 3 spectre");
-		}
 		sendl("sleep");
 	}
+  CMD::cmd_disable("CHECKARENAENTER");
+  sendl("|\r\npull chain");
 } "([A-Za-z]+) must wait ([0-9]+) minutes before being allowed back into the arena area", '2000n-:CHECKARENAENTER';
 
 trig {
@@ -2069,13 +1968,13 @@ sub healup {
 }
 
 trig {
-	if ($U::ARENA_STATUS == "ARENA_STATUS_EXIT_AFTER_ORB") {
+	if ($U::ARENA_STATUS eq "ARENA_STATUS_EXIT_AFTER_ORB") {
 		CMD::cmd_disable("AUTORESPELL");
 		CMD::cmd_enable("CHECKARENAENTER");
     $U::ARENA_STATUS = "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT";
 		sendl("sleep");
 	}
-  if ($U::ARENA_STATUS == "ARENA_STATUS_FIGHTING") {
+  if ($U::ARENA_STATUS eq "ARENA_STATUS_FIGHTING") {
   	if ((681 - $U::current_hp) > 100) {
   		healup();
   	} else {
