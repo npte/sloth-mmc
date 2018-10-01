@@ -1955,8 +1955,8 @@ sub getArenaStatus {
 }
 
 trig {
-	if (getArenaStatus() eq "ARENA_STATUS_EXIT_AFTER_ORB") {
-		if ((666 - $U::current_hp) > 100) {
+	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+		if ((666 - $U::current_hp) > 200) {
 		    healup()
 		} else {
 		    CMD::cmd_disable("AUTORESPELL");
