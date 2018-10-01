@@ -417,7 +417,7 @@ trig {
 hook {
 	Pinger::ping_proceed;
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
-		sendl("wake\r\nstand\r\ncheck hourglass");
+		sendl("wake\r\nstand\r\ncheck hourglass\r\nsleep");
 	}
 } "tick";
 
@@ -1857,9 +1857,9 @@ trig {
         setArenaStatus("ARENA_STATUS_BUFFING");
 		sendl("cast 'wall of flesh'");
 	}
-    if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-        sendl("sleep");
-    }
+    #if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+    #    sendl("sleep");
+    #}
 	##CMD::cmd_enable("ARENAASSIST");
 } "A pedestal underfoot begins to swivel on its axis, moving you into the arena", '2000n-:ARENA0';
 
@@ -1899,6 +1899,8 @@ trig {
         setArenaStatus("ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT");
         sendl("e");
         sendl("pull chain");
+        sendl("w");
+        sendl("sleep");
     }
 } "The floor swivels, forcing you to leave the arena area", '2000n-:ARENA0';
 
@@ -1911,7 +1913,7 @@ trig {
 } "([A-Za-z]+) must wait ([0-9]+) minutes before being allowed back into the arena area", '2000n:CHECKARENAENTER';
 
 trig {
-	sendl("|\r\npull chain")
+	sendl("|wake\r\nstand\r\npull chain")
 } "No one is on the waiting list to enter the arena", '2000n:CHECKARENAENTER';
 
 trig {
