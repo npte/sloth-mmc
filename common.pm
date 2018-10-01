@@ -1962,20 +1962,19 @@ trig {
             sendl("w");
 		    sendl("sleep");
 		}
-
 	}
-  if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
-  	if ((666 - $U::current_hp) > 100) {
-  		healup();
-  	} else {
-  		if ($U::current_mana > 200) {
-  			sendl("push button");
-  		} else {
-        setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
-  			sendl("sleep");
-  		}
-  	}
-  }
+    if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
+        if ((666 - $U::current_hp) > 100) {
+            healup();
+        } else {
+            if ($U::current_mana > 200) {
+                sendl("push button");
+            } else {
+            setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
+                sendl("sleep");
+            }
+        }
+    }
 } "BOIINNNNNNGG!", '2000n-:ARENA0';
 
 
