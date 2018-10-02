@@ -423,7 +423,7 @@ hook {
 		$U::ticks_waiting_for_orb = $U::ticks_waiting_for_orb + 1;
 	}
 	if ($U::ticks_waiting_for_orb > 4) {
-		$U::ticks_waiting_otb = 0;
+		$U::ticks_waiting_for_orb = 0;
 		sendl("where");
 	}
 } "tick";
