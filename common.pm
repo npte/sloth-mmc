@@ -419,13 +419,14 @@ hook {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
 		sendl("wake\r\nstand\r\ncheck hourglass");
 	}
-	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
+	if (getArenaStatus() ne "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
 		$U::ticks_waiting_for_orb = $U::ticks_waiting_for_orb + 1;
+    if ($U::ticks_waiting_for_orb > 4) {
+  		$U::ticks_waiting_for_orb = 0;
+  		sendl("where");
+  	}
 	}
-	if ($U::ticks_waiting_for_orb > 4) {
-		$U::ticks_waiting_for_orb = 0;
-		sendl("where");
-	}
+
 } "tick";
 
 
