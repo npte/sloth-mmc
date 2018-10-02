@@ -419,6 +419,13 @@ hook {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
 		sendl("wake\r\nstand\r\ncheck hourglass");
 	}
+	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
+		$U::ticks_waiting_for_orb = $U::ticks_waiting_for_orb + 1;
+	}
+	if ($U::ticks_waiting_for_orb > 4) {
+		$U::ticks_waiting_otb = 0;
+		sendl("where");
+	}
 } "tick";
 
 
@@ -1830,7 +1837,8 @@ trig { sendl("cast 'destruction' $U::target"); } "You failed to cast 'destructio
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
-        setArenaStatus("ARENA_STATUS_FIGHTING");
+        	$U::ticks_waiting_orb = 0;
+		setArenaStatus("ARENA_STATUS_FIGHTING");
 		sendl("wake");
 		sendl("sta");
 		healup();
