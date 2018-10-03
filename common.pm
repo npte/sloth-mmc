@@ -2018,7 +2018,7 @@ trig {
   my $filename = "./logs/score.txt";
   open(my $fh, '>>', $filename);
   my $dt = localtime;
-  print $fh "$dt $1";
+  print $fh "$dt $1\r\n";
   close $fh;
 
 } "^You have ([0-9]+) unused experience points\.", "2000n-:ARENA0";
