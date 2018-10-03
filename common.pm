@@ -6,6 +6,8 @@ use Pinger;
 #use Loopback;
 ##use Net::OSCAR;
 use Char;
+use DateTime;
+use DateTime::Format::XSD;
 
 my $mmc = $ENV{MMC} || $ENV{MMC} || $ENV{HOME} || '.';
 
@@ -2014,7 +2016,14 @@ trig {
     setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
 } "Gladiator Pit Entrance Level Four", '2000n-:ARENA0';
 
+trig {
+  my $filename = "./logs/score.txt";
+  open(my $fh, '>>', $filename);
+  my $dt = DateTime->now;
+  print $fh DateTime::Format::XSD->format_datetime($dt) . " $1";
+  close $fh;
 
+} "^You have ([0-9]+) unused experience points\.", "2000n-:ARENA0";
 __DATA__
 [tablist]
 
