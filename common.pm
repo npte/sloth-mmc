@@ -2012,7 +2012,15 @@ trig {
     CMD::cmd_disable("AUTORESPELL");
     CMD::cmd_enable("CHECKARENAENTER");
     setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-} "Gladiator Pit Entrance Level Four", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level Four", '2000n-:ARENA0';
+
+trig {
+    sendl("wake");
+    sendl("stand");
+    sendl("w");
+    sendl("sleep");
+    sendl("where");
+} "- Gladiator Pit Entrance Level Five", '2000n-:ARENA0';
 
 trig {
   my $filename = "./logs/score.txt";
