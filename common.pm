@@ -1859,6 +1859,7 @@ trig { sendl("cast 'thunder clap' $U::target"); } "You failed to cast 'thunder c
 trig { sendl("cast 'thunder clap' $U::target"); } "Your thunder clap hits", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
+trig { sendl("cast 'wraithform'"); } "You failed to cast 'wraithform'", '2000n-:ARENA0';
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
@@ -1895,9 +1896,13 @@ trig {
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
+  sendl("cast 'wraithform'")
+} "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
+
+trig {
   setArenaStatus("ARENA_STATUS_FIGHTING");
 	sendl("push button");
-} "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
+} "^Your body slowly takes on a wraithly form, becoming insubstantial\.", '2000n-:ARENA0';
 
 trig {
 	sendl("kill $U::target")
