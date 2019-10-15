@@ -581,107 +581,6 @@ trig {
         }
 } '^([^*]*)( massacres? )(.*)( with [^\']*)$', "500n:HIGHLIGHT";
 
-## Спеллы в статус линии
-trig {
- $U::gods = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '[A-Za-z\\\']+ song engulfs you into the spirit of battle!', "1000n:COMM";
-
-trig {
- $U::gods = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^The song ends and you are less inspired by the deeds of the war gods\\.', "1000n:COMM";
-
-trig {
- $U::wraith = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^Your body slowly takes on a wraithly form, becoming insubstantial\\.', "1000n:COMM";
-
-trig {
- $U::wraith = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^Your body returns to solid form\\.', "1000n:COMM";
-
-trig {
- $U::spectral = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You bind some nearby spectres into an undulating shield around you\\.', "1000n:COMM";
-
-trig {
- $U::spectral = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^The binding of the spectres wears off, and the shield they formed dissipates\\.', "1000n:COMM";
-
-trig {
- $U::sanc = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You start glowing\\.', "1000n:COMM";
-
-trig {
- $U::sanc = "\003A"; $U::cloak = "\003A"; sendl ("gt Sanc down!");
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^The white aura around your body fades\\.', "1000n:COMM";
-
-trig {
- $U::aegis = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You are surrounded by a radiant light\\.', "1000n:COMM";
-
-trig {
- $U::aegis = "\003A"; $U::cloak = "\003A"; sendl ("gt Aegis down!");
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^The radiant sphere around your body fades\\.', "1000n:COMM";
-
-trig {
- $U::wall = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You are surrounded by a wall of rotting flesh\\.', "1000n:COMM";
-
-trig {
- $U::wall = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^The wall of flesh decays around you\\.', "1000n:COMM";
-
-trig {
- $U::wall = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^As you step through the protective wall of flesh, it disintegrates into a pile of goo\\.', "1000n:COMM";
-
-trig {
- $U::cloak = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^A dark haze precipitates around your body\\.', "1000n:COMM";
-
-trig {
- $U::darkness = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^A cloud of inky darkness envelops you\\.', "1000n:COMM";
-
-trig {
- $U::darkness = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^The inky darkness around you fades\\.', "1000n:COMM";
-
-trig {
- $U::stone = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You feel your skin become much, much stronger\\.', "1000n:COMM";
-
-trig {
- $U::stone = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You feel less protected\\.', "1000fn:COMM";
-
-trig {
- $U::iron = "\003L";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You feel your skin become much, much stronger\\.', "1000n:COMM";
-
-trig {
- $U::iron = "\003A";
- $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS"."\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE"."\003A/".$U::iron."IRON";
-} '^You feel less protected\\.', "1000n:COMM";
-
 ## Важные предупрежнения
 sub HL_g {
         $: = "\003N$_";
@@ -1783,37 +1682,39 @@ foreach (@wish) {
 }
 undef @wish;
 
-trig { $U::target = "lizard"; sendl("cast 'thunder clap' $U::target\r\n\r\ncast 'thunder clap' $U::target") } 'A bright-red fire lizard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "warrior"; sendl("cast 'thunder clap' $U::target") } 'A faerine warrior is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "bug"; sendl("cast 'thunder clap' $U::target") } 'A giant sow bug is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "octopus"; sendl("cast 'thunder clap' $U::target") } 'A giant undead octopus is waiting for you on the other side\.', '2000n-:ARENA0';
+my $spell_name = 'fireball';
+
+trig { $U::target = "lizard"; sendl("cast '$spellname' $U::target\r\n\r\ncast '$spellname' $U::target") } 'A bright-red fire lizard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "warrior"; sendl("cast '$spellname' $U::target") } 'A faerine warrior is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "bug"; sendl("cast '$spellname' $U::target") } 'A giant sow bug is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "octopus"; sendl("cast '$spellname' $U::target") } 'A giant undead octopus is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "mouther"; sendl("cast 'fireball' $U::target") } 'A gibbering mouther is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "gladiator"; sendl("cast 'thunder clap' $U::target") } 'A kobold gladiator slave is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "assassin"; sendl("cast 'thunder clap' $U::target") } 'A masked quickling assassin is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "zombie"; sendl("cast 'thunder clap' $U::target") } 'A ravenous zombie is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "monster"; sendl("cast 'thunder clap' $U::target") } 'A sludge monster is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "gnoll"; sendl("cast 'thunder clap' $U::target") } 'A snarling gnoll axeman is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "bunny"; sendl("cast 'thunder clap' $U::target") } 'A vorpal bunny is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "firenewt"; sendl("cast 'thunder clap' $U::target") } 'An adept firenewt battle mage is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "firenewt"; sendl("cast 'thunder clap' $U::target") } 'An adept firenewt battle priest is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "slime"; sendl("cast 'thunder clap' $U::target") } 'An agitated green slime is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Calliperus"; sendl("cast 'thunder clap' $U::target") } 'Calliperus the rogue is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Devon"; sendl("cast 'thunder clap' $U::target") } 'Devon the bard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Eunice"; sendl("cast 'thunder clap' $U::target") } 'Eunice the mage is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Giolvira"; sendl("cast 'thunder clap' $U::target") } 'Giolvira, daughter of Kyuss is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Gordo"; sendl("cast 'thunder clap' $U::target") } 'Gordo, the barbarian is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Sonjill"; sendl("cast 'thunder clap' $U::target") } 'Sonjill the warrior bard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "warrior"; sendl("cast 'thunder clap' $U::target") } 'A skeletal warrior is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Merate"; sendl("cast 'thunder clap' $U::target") } 'Merate the thief acrobat is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "gorilla"; sendl("cast 'thunder clap' $U::target") } 'A silverback gorilla is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "golem"; sendl("cast 'thunder clap' $U::target") } 'A thatch golem is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "stick"; sendl("cast 'thunder clap' $U::target") } 'A giant walking stick is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "guard"; sendl("cast 'thunder clap' $U::target") } 'The king\'s royal guard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "dwarf"; sendl("cast 'thunder clap' $U::target") } 'A dirty drunken dwarf is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "samurai"; sendl("cast 'thunder clap' $U::target") } 'A silver samurai is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "shaman"; sendl("cast 'thunder clap' $U::target") } 'A fairy shaman is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "minotaur"; sendl("cast 'thunder clap' $U::target") } 'A juvenile minotaur is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "blade"; sendl("cast 'thunder clap' $U::target") } 'A blade wielding snudiss is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "gladiator"; sendl("cast '$spellname' $U::target") } 'A kobold gladiator slave is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "assassin"; sendl("cast '$spellname' $U::target") } 'A masked quickling assassin is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "zombie"; sendl("cast '$spellname' $U::target") } 'A ravenous zombie is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "monster"; sendl("cast '$spellname' $U::target") } 'A sludge monster is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "gnoll"; sendl("cast '$spellname' $U::target") } 'A snarling gnoll axeman is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "bunny"; sendl("cast '$spellname' $U::target") } 'A vorpal bunny is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "firenewt"; sendl("cast '$spellname' $U::target") } 'An adept firenewt battle mage is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "firenewt"; sendl("cast '$spellname' $U::target") } 'An adept firenewt battle priest is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "slime"; sendl("cast '$spellname' $U::target") } 'An agitated green slime is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Calliperus"; sendl("cast '$spellname' $U::target") } 'Calliperus the rogue is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Devon"; sendl("cast '$spellname' $U::target") } 'Devon the bard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Eunice"; sendl("cast '$spellname' $U::target") } 'Eunice the mage is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Giolvira"; sendl("cast '$spellname' $U::target") } 'Giolvira, daughter of Kyuss is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Gordo"; sendl("cast '$spellname' $U::target") } 'Gordo, the barbarian is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Sonjill"; sendl("cast '$spellname' $U::target") } 'Sonjill the warrior bard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "warrior"; sendl("cast '$spellname' $U::target") } 'A skeletal warrior is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Merate"; sendl("cast '$spellname' $U::target") } 'Merate the thief acrobat is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "gorilla"; sendl("cast '$spellname' $U::target") } 'A silverback gorilla is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "golem"; sendl("cast '$spellname' $U::target") } 'A thatch golem is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "stick"; sendl("cast '$spellname' $U::target") } 'A giant walking stick is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "guard"; sendl("cast '$spellname' $U::target") } 'The king\'s royal guard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "dwarf"; sendl("cast '$spellname' $U::target") } 'A dirty drunken dwarf is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "samurai"; sendl("cast '$spellname' $U::target") } 'A silver samurai is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "shaman"; sendl("cast '$spellname' $U::target") } 'A fairy shaman is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "minotaur"; sendl("cast '$spellname' $U::target") } 'A juvenile minotaur is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "blade"; sendl("cast '$spellname' $U::target") } 'A blade wielding snudiss is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "dragon"; sendl("cast 'firewind' $U::target") } 'A small chromatic dragon is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "sinister"; sendl("cast 'firewind' $U::target") } 'A sinister floating head is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "warrior"; sendl("cast 'firewind' $U::target") } 'A phantom warrior is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1827,8 +1728,8 @@ trig { $U::target = "follower"; sendl("cast 'firewind' $U::target") } 'A followe
 trig { $U::target = "illusionist"; sendl("cast 'firewind' $U::target") } 'An illusionist is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "remorhaz"; sendl("cast 'firewind' $U::target") } 'A giant remorhaz is waiting for you on the other side\.', '2000n-:ARENA0';
 
-trig { $U::target = "swarm"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'thunder clap' $U::target") } 'A swarm of midges is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "guardian"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'thunder clap' $U::target") } 'A dark guardian is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "swarm"; CMD::cmd_disable("ARENAASSIST"); sendl("cast '$spellname' $U::target") } 'A swarm of midges is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "guardian"; CMD::cmd_disable("ARENAASSIST"); sendl("cast '$spellname' $U::target") } 'A dark guardian is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "shadow"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'turn undead' shadow\r\ncast 'turn undead' shadow") } 'A lesser shadow is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "ant"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'turn undead' ant\r\ncast 'turn undead' ant\r\ncast 'turn undead' ant") } 'A giant ethereal ant is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "poltergeist"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'turn undead' poltergeist\r\ncast 'turn undead' poltergeist\r\ncast 'turn undead' poltergeist") } 'A chaotic poltergeist is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1851,12 +1752,12 @@ trig {
 	}
  } "A floating orb bathes you in blue light refreshing your energy", '2000n-:ARENA0';
 
-trig { sendl("cast 'thunder clap' $U::target"); } "You struggle with a giant undead octopus's tentacle, to no effect", '2000n-:ARENA0';
+trig { sendl("cast '$spellname' $U::target"); } "You struggle with a giant undead octopus's tentacle, to no effect", '2000n-:ARENA0';
 trig { sendl("cast 'destruction' $U::target"); } " is blasted away", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "You failed to cast 'fireball'", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "^You throw a fireball", '2000n-:ARENA0';
-trig { sendl("cast 'thunder clap' $U::target"); } "You failed to cast 'thunder clap'", '2000n-:ARENA0';
-trig { sendl("cast 'thunder clap' $U::target"); } "Your thunder clap hits", '2000n-:ARENA0';
+trig { sendl("cast '$spellname' $U::target"); } "You failed to cast '$spellname'", '2000n-:ARENA0';
+trig { sendl("cast '$spellname' $U::target"); } "Your $spellname hits", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 trig { sendl("cast 'wraithform'"); } "You failed to cast 'wraithform'", '2000n-:ARENA0';
