@@ -1766,7 +1766,8 @@ trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
         CMD::cmd_disable("CHECKARENAENTER");
         setArenaStatus("ARENA_STATUS_BUFFING");
-		sendl("cast 'wall of flesh'");
+		#sendl("cast 'wall of flesh'");
+		sendl("cast 'stone skin'");
 	}
     #if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
     #    sendl("sleep");
@@ -1782,7 +1783,9 @@ trig {
 trig { sendl("|\r\ncast 'stone skin'"); } "You failed to cast 'stone skin'", '2000n-:ARENA0';
 
 trig {
-	sendl("cast 'bless'")
+	#sendl("cast 'bless'")
+  setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl("push button");
 } "You feel your skin become much, much stronger", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'bless'"); } "You failed to cast 'bless'", '2000n-:ARENA0';
 
@@ -1797,13 +1800,15 @@ trig {
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
-  sendl("cast 'wraithform'")
+  #sendl("cast 'wraithform'")
+  setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl("push button");
 } "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
 
-trig {
-  setArenaStatus("ARENA_STATUS_FIGHTING");
-	sendl("push button");
-} "^Your body slowly takes on a wraithly form, becoming insubstantial\.", '2000n-:ARENA0';
+#trig {
+#  setArenaStatus("ARENA_STATUS_FIGHTING");
+#	sendl("push button");
+#} "^Your body slowly takes on a wraithly form, becoming insubstantial\.", '2000n-:ARENA0';
 
 trig {
 	sendl("kill $U::target")
