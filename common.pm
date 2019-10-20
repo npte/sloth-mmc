@@ -1682,7 +1682,8 @@ foreach (@wish) {
 }
 undef @wish;
 
-my $spell_name = 'fireball';
+my $spellname = 'fireball';
+my $maxhp=253;
 
 trig { $U::target = "lizard"; sendl("cast '$spellname' $U::target\r\n\r\ncast '$spellname' $U::target") } 'A bright-red fire lizard is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "warrior"; sendl("cast '$spellname' $U::target") } 'A faerine warrior is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1769,9 +1770,9 @@ trig {
 		#sendl("cast 'wall of flesh'");
 		sendl("cast 'stone skin'");
 	}
-    #if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-    #    sendl("sleep");
-    #}
+    if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
+        sendl("sleep");
+    }
 	##CMD::cmd_enable("ARENAASSIST");
 } "A pedestal underfoot begins to swivel on its axis, moving you into the arena", '2000n-:ARENA0';
 
@@ -1783,9 +1784,7 @@ trig {
 trig { sendl("|\r\ncast 'stone skin'"); } "You failed to cast 'stone skin'", '2000n-:ARENA0';
 
 trig {
-	#sendl("cast 'bless'")
-  setArenaStatus("ARENA_STATUS_FIGHTING");
-  sendl("push button");
+  sendl("cast 'bless'")
 } "You feel your skin become much, much stronger", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'bless'"); } "You failed to cast 'bless'", '2000n-:ARENA0';
 
@@ -1795,7 +1794,9 @@ trig {
 trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'", '2000n-:ARENA0';
 
 trig {
-	sendl("cast 'fluidity'")
+  #sendl("cast 'fluidity'")
+  setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl("push button");
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
@@ -1838,7 +1839,7 @@ trig {
 } "No one is on the waiting list to enter the arena", '2000n:CHECKARENAENTER';
 
 trig {
-	sendl("sleep")
+	sendl("sleep");
 } "This isn't the post office!", '2000n-:CHECKARENAENTER';
 
 trig {
@@ -1846,17 +1847,18 @@ trig {
 	healup();
 } "(You received)|(Total exp for kill is)", '2000n-:ARENA0';
 
-
 sub healup {
     if ($U::current_mana > 43) {
-        $rest = int ((666 - $U::current_hp) / 200);
-        $gheal = int ((666 - $U::current_hp - $rest * 200) / 150);
-        $heal = int ((666 - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
+        $rest = int (($maxhp - $U::current_hp) / 40);
+        #$rest = int (($maxhp - $U::current_hp) / 200);
+        $gheal = 0;#int (($maxhp - $U::current_hp - $rest * 200) / 150);
+        $heal = 0;#int (($maxhp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
         echo("restor $rest times");
         echo("gheal $gheal times");
         echo("heal $heal times");
         for (my $i = 0; $i < $rest; $i++) {
-            sendl("cast 'restoration'");
+          #sendl("cast 'restoration'");
+          sendl("cast 'cure ser'");
         }
         for (my $i = 0; $i < $gheal; $i++) {
             sendl("cast 'greater heal'");
@@ -1885,11 +1887,11 @@ sub getArenaStatus {
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-		if ((666 - $U::current_hp) > 200) {
-            echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = (666 - $U::current_hp) > 200, healup");
+		if (($maxhp - $U::current_hp) > 100) {
+            echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = ($maxhp - $U::current_hp) > 100, healup");
 		    healup()
 		} else {
-		    echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = (666 - $U::current_hp) < 200, go to start");
+		    echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = ($maxhp - $U::current_hp) < 100, go to start");
 		    CMD::cmd_disable("AUTORESPELL");
 		    CMD::cmd_enable("CHECKARENAENTER");
             setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
@@ -1902,15 +1904,15 @@ trig {
 		}
 	}
     if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
-        if ((666 - $U::current_hp) > 100) {
-            echo("=== Saving items, ARENA_STATUS_FIGHTING: Hp = 666 - $U::current_hp > 100, healup");
+        if (($maxhp - $U::current_hp) > 50) {
+            echo("=== Saving items, ARENA_STATUS_FIGHTING: Hp = $maxhp - $U::current_hp > 50, healup");
             healup();
         } else {
-            if ($U::current_mana > 200) {
-                echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana > 200, push button");
+            if ($U::current_mana > 75) {
+                echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana > 75, push button");
                 sendl("push button");
             } else {
-                echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana < 200, wait for orb");
+                echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana < 75, wait for orb");
                 setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
                 sendl("sleep");
             }
@@ -1923,7 +1925,7 @@ trig {
     CMD::cmd_disable("AUTORESPELL");
     CMD::cmd_enable("CHECKARENAENTER");
     setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-} "- Gladiator Pit Entrance Level Four", '2000n-:ARENA0';
+} "- The Newbie Gladitorial Coliseum Entrance", '2000n-:ARENA0';
 
 trig {
     sendl("wake");
@@ -1931,7 +1933,7 @@ trig {
     sendl("w");
     sendl("sleep");
     sendl("where");
-} "- Gladiator Pit Entrance Level Five", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level Zero", '2000n-:ARENA0';
 
 trig {
   my $filename = "./logs/score.txt";
