@@ -1760,7 +1760,7 @@ trig {
 		healup();
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-	    sendl("wake");
+    sendl("wake");
 		sendl("sta");
 		healup();
 	}
@@ -1781,7 +1781,7 @@ trig {
         CMD::cmd_disable("CHECKARENAENTER");
         setArenaStatus("ARENA_STATUS_BUFFING");
 		#sendl("cast 'wall of flesh'");
-		sendl("cast 'stone skin'");
+		sendl("cast 'armor'");
 	}
     if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
         sendl("sleep");
@@ -1798,18 +1798,19 @@ trig { sendl("|\r\ncast 'stone skin'"); } "You failed to cast 'stone skin'", '20
 
 trig {
   sendl("cast 'bless'")
-} "You feel your skin become much, much stronger", '2000n-:ARENA0';
+#} "You feel your skin become much, much stronger", '2000n-:ARENA0';
+} "You feel someone protecting you", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'bless'"); } "You failed to cast 'bless'", '2000n-:ARENA0';
 
 trig {
-	sendl("cast 'regeneration'")
+	#sendl("cast 'regeneration'")
+  setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl("push button");
 } "You feel righteous", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'", '2000n-:ARENA0';
 
 trig {
-  #sendl("cast 'fluidity'")
-  setArenaStatus("ARENA_STATUS_FIGHTING");
-  sendl("push button");
+  sendl("cast 'fluidity'")
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
