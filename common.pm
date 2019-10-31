@@ -1692,10 +1692,10 @@ if (not defined($Char::solid_attack)) {
   $solid_attack = $Char::solid_attack;
 }
 
-if (not defined($Char::$ether_attack)) {
+if (not defined($Char::ether_attack)) {
   $ether_attack = "cast 'fireball' ";
 } else {
-  $ether_attack = $Char::$ether_attack;
+  $ether_attack = $Char::ether_attack;
 }
 
 trig { $U::target = "lizard"; sendl("$solid_attack $U::target") } 'A bright-red fire lizard is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1776,12 +1776,15 @@ trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '200
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 trig { sendl("cast 'wraithform'"); } "You failed to cast 'wraithform'", '2000n-:ARENA0';
 
+trig { sendl("cast 'turn undead'"); } "bellows in agony", '2000n-:ARENA0';
+trig { sendl("cast 'turn undead'"); } "You failed to cast 'turn undead'", '2000n-:ARENA0';
+
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
         CMD::cmd_disable("CHECKARENAENTER");
         setArenaStatus("ARENA_STATUS_BUFFING");
 		#sendl("cast 'wall of flesh'");
-		sendl("cast 'armor'");
+		sendl("cast 'stone skin'");
 	}
     if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
         sendl("sleep");
@@ -1798,8 +1801,7 @@ trig { sendl("|\r\ncast 'stone skin'"); } "You failed to cast 'stone skin'", '20
 
 trig {
   sendl("cast 'bless'")
-#} "You feel your skin become much, much stronger", '2000n-:ARENA0';
-} "You feel someone protecting you", '2000n-:ARENA0';
+} "You feel your skin become much, much stronger", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'bless'"); } "You failed to cast 'bless'", '2000n-:ARENA0';
 
 trig {
@@ -1862,11 +1864,12 @@ trig {
 } "(You received)|(Total exp for kill is)", '2000n-:ARENA0';
 
 sub healup {
+	echo("cur_hp: $U::current_hp max_hp: $U::max_hp");
     if ($U::current_mana > 43) {
-        $rest = int (($max_hp - $U::current_hp) / 40);
-        #$rest = int (($max_hp - $U::current_hp) / 200);
-        $gheal = 0;#int (($max_hp - $U::current_hp - $rest * 200) / 150);
-        $heal = 0;#int (($max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
+        $rest = int (($U::max_hp - $U::current_hp) / 30);
+        #$rest = int (($U::max_hp - $U::current_hp) / 200);
+        $gheal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200) / 150);
+        $heal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
         echo("restor $rest times");
         echo("gheal $gheal times");
         echo("heal $heal times");

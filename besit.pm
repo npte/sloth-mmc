@@ -12,7 +12,7 @@ require Exporter;    # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï
 
 $my_name = "Besit";
 $bless = "bless";
-$armor = "armor";
+$armor = "stone skin";
 $lite = "sanctuary";
 $food_container = "pack";
 $recall_container = "pack";
