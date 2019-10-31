@@ -1692,10 +1692,10 @@ if (not defined($Char::solid_attack)) {
   $solid_attack = $Char::solid_attack;
 }
 
-if (not defined($Char::$ether_attack)) {
+if (not defined($Char::ether_attack)) {
   $ether_attack = "cast 'fireball' ";
 } else {
-  $ether_attack = $Char::$ether_attack;
+  $ether_attack = $Char::ether_attack;
 }
 
 trig { $U::target = "lizard"; sendl("$solid_attack $U::target") } 'A bright-red fire lizard is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1775,6 +1775,9 @@ trig { sendl("$solid_attack $U::target"); } "Your $spellname hits", '2000n-:AREN
 trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 trig { sendl("cast 'wraithform'"); } "You failed to cast 'wraithform'", '2000n-:ARENA0';
+
+trig { sendl("cast 'turn undead'"); } "bellows in agony", '2000n-:ARENA0';
+trig { sendl("cast 'turn undead'"); } "You failed to cast 'turn undead'", '2000n-:ARENA0';
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
