@@ -1783,8 +1783,7 @@ trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
         CMD::cmd_disable("CHECKARENAENTER");
         setArenaStatus("ARENA_STATUS_BUFFING");
-		#sendl("cast 'wall of flesh'");
-		sendl("cast 'stone skin'");
+		sendl("cast 'wall of flesh'");
 	}
     if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
         sendl("sleep");
@@ -1805,14 +1804,14 @@ trig {
 trig { sendl("|\r\ncast 'bless'"); } "You failed to cast 'bless'", '2000n-:ARENA0';
 
 trig {
-	#sendl("cast 'regeneration'")
-  setArenaStatus("ARENA_STATUS_FIGHTING");
-  sendl("push button");
+  sendl("cast 'regeneration'")
 } "You feel righteous", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'", '2000n-:ARENA0';
 
 trig {
-  sendl("cast 'fluidity'")
+  #sendl("cast 'fluidity'");
+  setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl("push button");
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
@@ -1942,7 +1941,8 @@ trig {
     CMD::cmd_disable("AUTORESPELL");
     CMD::cmd_enable("CHECKARENAENTER");
     setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-} "- The Newbie Gladitorial Coliseum Entrance", '2000n-:ARENA0';
+#} "- The Newbie Gladitorial Coliseum Entrance", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level Zero", '2000n-:ARENA0';
 
 trig {
     sendl("wake");
@@ -1950,7 +1950,8 @@ trig {
     sendl("w");
     sendl("sleep");
     sendl("where");
-} "- Gladiator Pit Entrance Level Zero", '2000n-:ARENA0';
+#} "- Gladiator Pit Entrance Level Zero", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level One", '2000n-:ARENA0';
 
 trig {
   my $filename = "./logs/score.txt";
