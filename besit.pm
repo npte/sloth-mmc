@@ -32,7 +32,7 @@ sub solid_attack {
 }
 
 sub before_push {
-    return "rem halberd\r\nwie singer";
+    return "rem halberd\r\nwie stinger";
 }
 
 1;
