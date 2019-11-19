@@ -64,11 +64,6 @@ $U::darkness = "\003A";
 $U::stone = "\003A";
 $U::iron = "\003A";
 $spells = $U::gods."GODS ".$U::wraith."WRAITH ".$U::spectral."SPECTRAL ".$U::sanc."SANC\003A/".$U::aegis."AEGIS\003A/".$U::wall."WALL ".$U::cloak."CLOAK ".$U::darkness."DARKNESS ".$U::stone."STONE\003A/".$U::iron."IRON";
-$U::regen = "\003I";
-$U::ac = "\003C";
-$U::damage = "\003I";
-$U::rent = "\003I";
-$mode_keys = "\003I[F1:".$U::regen."REGEN\003I  F2:".$U::damage."Damage\003I  F3:".$U::ac."AC\003I  F4:".$U::rent."RENT\003I]";
 $U::tank = $Char::my_name;
 $U::target = undef;
 $U::fight = 0;
@@ -130,7 +125,6 @@ new_sv($U::gold, 11, 5);
 new_sv($U::room,10);
 new_sv($U::ac,20);
 new_svy($spells,1);
-new_svy($mode_keys,2);
 
 ### Внутренние переменные.
 my $loot = 0;
@@ -1049,102 +1043,6 @@ bindkey { sendl("cast 'invis' $Char::my_name") } "C-q";
 #bindkey { sendl("kill $U::Target") } "M-K";
 bindkey { CMD::cmd_tick } "M-t";
 
-=comment
-bindkey {
- if ($Char::mode ne "Regen") {
-     if ($Char::mode eq "AC") { Char::rem_ac; $U::ac = "\003I"; }
-     if ($Char::mode eq "Rent") { Char::rem_rent; $U::rent = "\003I"; }
-     if ($Char::mode eq "Control") { Char::rem_damage; $U::damage = "\003I"; }
-     Char::wear_regen;
-     $U::regen = "\003C";
-     $mode_keys = "\003I[F1:".$U::regen."REGEN\003I  F2:".$U::damage."Damage\003I  F3:".$U::ac."AC\003I  F4:".$U::rent."RENT\003I]";
- };
-} "f1";
-
-bindkey {
- if ($Char::mode ne "Control") {
-     if ($Char::mode eq "AC") { Char::rem_ac; $U::ac = "\003I"; }
-     if ($Char::mode eq "Rent") { Char::rem_rent; $U::rent = "\003I"; }
-     if ($Char::mode eq "Regen") { Char::rem_regen; $U::regen = "\003I"; }
-     Char::wear_damage;
-     $U::damage = "\003C";
-     $mode_keys = "\003I[F1:".$U::regen."REGEN\003I  F2:".$U::damage."Damage\003I  F3:".$U::ac."AC\003I  F4:".$U::rent."RENT\003I]";
- };
-} "f2";
-
-bindkey {
- if ($Char::mode ne "AC") {
-    if ($Char::mode eq "Regen") { Char::rem_regen; $U::regen = "\003I"; }
-    if ($Char::mode eq "Rent") { Char::rem_rent; $U::rent = "\003I"; }
-    if ($Char::mode eq "Control") { Char::rem_damage; $U::damage = "\003I"; }
-    Char::wear_ac;
-    $U::ac = "\003C";
-    $mode_keys = "\003I[F1:".$U::regen."REGEN\003I  F2:".$U::damage."Damage\003I  F3:".$U::ac."AC\003I  F4:".$U::rent."RENT\003I]";
-  };
-} "f3";
-
-bindkey {
-
- if ($Char::mode ne "Rent") {
-    if ($Char::mode eq "Regen") { Char::rem_regen; $U::regen = "\003I"; }
-    if ($Char::mode eq "AC") { Char::rem_ac; $U::ac = "\003I"; }
-    if ($Char::mode eq "Control") { Char::rem_damage; $U::damage = "\003I"; }
-    Char::wear_rent;
-    $U::rent = "\003C";
-    $mode_keys = "\003I[F1:".$U::regen."REGEN\003I  F2:".$U::damage."Damage\003I  F3:".$U::ac."AC\003I  F4:".$U::rent."RENT\003I]";
-  };
-} "f4";
-
-bindkey {
- if ($Char::mode ne "regen") {
-     wear('regen');
-     $U::regen = "\003C";
-     $mode_keys = $Char::mode;
- };
-} "f1";
-
-bindkey {
- if ($Char::mode ne "uc") {
-     wear('uc');
-     $U::damage = "\003C";
-     $mode_keys = $Char::mode;;
- };
-} "f2";
-
-bindkey {
- if ($Char::mode ne "ac") {
-    wear('ac');
-    $U::ac = "\003C";
-    $mode_keys = $Char::mode;";
-  };
-} "f3";
-
-
-bindkey {
- if ($Char::mode ne "regen") {
-     wear('regen');
-     $U::regen = "\003C";
-     $mode_keys = $Char::mode;
- };
-} "f1";
-
-bindkey {
- if ($Char::mode ne "uc") {
-     wear('uc');
-     $U::damage = "\003C";
-     $mode_keys = $Char::mode;
- };
-} "f2";
-
-bindkey {
- if ($Char::mode ne "ac") {
-    wear('ac');
-    $U::ac = "\003C";
-    $mode_keys = $Char::mode;
-  };
-} "f3";
-=cut
-
 
 # Алиасы
 
@@ -1231,7 +1129,7 @@ alias { sendl("cast 'dispel evil' $U::target") }        "det";
 alias { sendl("cast 'acid blast' @_[0]") }                "ab";
 alias { sendl("cast 'acid blast' $U::target") }                "abt";
 alias { sendl("cast 'firewind' @_[0]") }                "fw";
-alias { Char::ether_attack($U::target) }                "fwt";
+alias { sendl(Char::ether_attack($U::target) }                "fwt";
 alias { sendl("cast 'destruction' @_[0]") }                "dd";
 alias { sendl("cast 'destruction' $U::target") }                "ddt";
 alias { sendl("cast 'web' @_[0]") }                        "web";
@@ -1682,52 +1580,52 @@ foreach (@wish) {
 }
 undef @wish;
 
-trig { $U::target = "lizard"; Char::solid_attack($U::target) } 'A bright-red fire lizard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "warrior"; Char::solid_attack($U::target) } 'A faerine warrior is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "bug"; Char::solid_attack($U::target) } 'A giant sow bug is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "octopus"; Char::solid_attack($U::target) } 'A giant undead octopus is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "mouther"; Char::solid_attack($U::target) } 'A gibbering mouther is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "gladiator"; Char::solid_attack($U::target) } 'A kobold gladiator slave is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "assassin"; Char::solid_attack($U::target) } 'A masked quickling assassin is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "zombie"; Char::solid_attack($U::target) } 'A ravenous zombie is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "monster"; Char::solid_attack($U::target) } 'A sludge monster is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "gnoll"; Char::solid_attack($U::target) } 'A snarling gnoll axeman is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "bunny"; Char::solid_attack($U::target) } 'A vorpal bunny is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "firenewt"; Char::solid_attack($U::target) } 'An adept firenewt battle mage is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "firenewt"; Char::solid_attack($U::target) } 'An adept firenewt battle priest is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "slime"; Char::solid_attack($U::target) } 'An agitated green slime is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Calliperus"; Char::solid_attack($U::target) } 'Calliperus the rogue is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Devon"; Char::solid_attack($U::target) } 'Devon the bard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Eunice"; Char::solid_attack($U::target) } 'Eunice the mage is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Giolvira"; Char::solid_attack($U::target) } 'Giolvira, daughter of Kyuss is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Gordo"; Char::solid_attack($U::target) } 'Gordo, the barbarian is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Sonjill"; Char::solid_attack($U::target) } 'Sonjill the warrior bard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "warrior"; Char::solid_attack($U::target) } 'A skeletal warrior is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "Merate"; Char::solid_attack($U::target) } 'Merate the thief acrobat is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "gorilla"; Char::solid_attack($U::target) } 'A silverback gorilla is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "golem"; Char::solid_attack($U::target) } 'A thatch golem is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "stick"; Char::solid_attack($U::target) } 'A giant walking stick is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "guard"; Char::solid_attack($U::target) } 'The king\'s royal guard is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "dwarf"; Char::solid_attack($U::target) } 'A dirty drunken dwarf is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "samurai"; Char::solid_attack($U::target) } 'A silver samurai is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "shaman"; Char::solid_attack($U::target) } 'A fairy shaman is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "minotaur"; Char::solid_attack($U::target) } 'A juvenile minotaur is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "blade"; Char::solid_attack($U::target) } 'A blade wielding snudiss is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "dragon"; Char::ether_attack($U::target) } 'A small chromatic dragon is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "sinister"; Char::ether_attack($U::target) } 'A sinister floating head is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "warrior"; Char::ether_attack($U::target) } 'A phantom warrior is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "fire"; Char::ether_attack($U::target) } 'A giant fire serpent is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "crab"; Char::ether_attack($U::target) } 'A giant land crab is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "lizard"; sendl(Char::solid_attack($U::target) } 'A bright-red fire lizard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "warrior"; sendl(Char::solid_attack($U::target) } 'A faerine warrior is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "bug"; sendl(Char::solid_attack($U::target) } 'A giant sow bug is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "octopus"; sendl(Char::solid_attack($U::target) } 'A giant undead octopus is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "mouther"; sendl(Char::solid_attack($U::target) } 'A gibbering mouther is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "gladiator"; sendl(Char::solid_attack($U::target) } 'A kobold gladiator slave is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "assassin"; sendl(Char::solid_attack($U::target) } 'A masked quickling assassin is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "zombie"; sendl(Char::solid_attack($U::target) } 'A ravenous zombie is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "monster"; sendl(Char::solid_attack($U::target) } 'A sludge monster is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "gnoll"; sendl(Char::solid_attack($U::target) } 'A snarling gnoll axeman is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "bunny"; sendl(Char::solid_attack($U::target) } 'A vorpal bunny is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "firenewt"; sendl(Char::solid_attack($U::target) } 'An adept firenewt battle mage is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "firenewt"; sendl(Char::solid_attack($U::target) } 'An adept firenewt battle priest is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "slime"; sendl(Char::solid_attack($U::target) } 'An agitated green slime is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Calliperus"; sendl(Char::solid_attack($U::target) } 'Calliperus the rogue is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Devon"; sendl(Char::solid_attack($U::target) } 'Devon the bard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Eunice"; sendl(Char::solid_attack($U::target) } 'Eunice the mage is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Giolvira"; sendl(Char::solid_attack($U::target) } 'Giolvira, daughter of Kyuss is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Gordo"; sendl(Char::solid_attack($U::target) } 'Gordo, the barbarian is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Sonjill"; sendl(Char::solid_attack($U::target) } 'Sonjill the warrior bard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "warrior"; sendl(Char::solid_attack($U::target) } 'A skeletal warrior is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "Merate"; sendl(Char::solid_attack($U::target) } 'Merate the thief acrobat is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "gorilla"; sendl(Char::solid_attack($U::target) } 'A silverback gorilla is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "golem"; sendl(Char::solid_attack($U::target) } 'A thatch golem is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "stick"; sendl(Char::solid_attack($U::target) } 'A giant walking stick is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "guard"; sendl(Char::solid_attack($U::target) } 'The king\'s royal guard is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "dwarf"; sendl(Char::solid_attack($U::target) } 'A dirty drunken dwarf is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "samurai"; sendl(Char::solid_attack($U::target) } 'A silver samurai is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "shaman"; sendl(Char::solid_attack($U::target) } 'A fairy shaman is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "minotaur"; sendl(Char::solid_attack($U::target) } 'A juvenile minotaur is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "blade"; sendl(Char::solid_attack($U::target) } 'A blade wielding snudiss is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "dragon"; sendl(Char::ether_attack($U::target) } 'A small chromatic dragon is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "sinister"; sendl(Char::ether_attack($U::target) } 'A sinister floating head is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "warrior"; sendl(Char::ether_attack($U::target) } 'A phantom warrior is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "fire"; sendl(Char::ether_attack($U::target) } 'A giant fire serpent is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "crab"; sendl(Char::ether_attack($U::target) } 'A giant land crab is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "owlbear"; sendl("cast 'acid blast' $U::target\r\ncast 'firewind' $U::target") } 'An owlbear gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "dragon"; Char::solid_attack($U::target) } 'A ferocious green dragon is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "abysmal"; Char::solid_attack($U::target) } 'An abysmal darkness is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "dragonitte"; Char::solid_attack($U::target) } 'An arrogant dragonitte gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "follower"; Char::solid_attack($U::target) } 'A follower of Amathea is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "illusionist"; Char::solid_attack($U::target) } 'An illusionist is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "remorhaz"; Char::solid_attack($U::target) } 'A giant remorhaz is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "dragon"; sendl(Char::solid_attack($U::target) } 'A ferocious green dragon is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "abysmal"; sendl(Char::solid_attack($U::target) } 'An abysmal darkness is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "dragonitte"; sendl(Char::solid_attack($U::target) } 'An arrogant dragonitte gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "follower"; sendl(Char::solid_attack($U::target) } 'A follower of Amathea is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "illusionist"; sendl(Char::solid_attack($U::target) } 'An illusionist is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "remorhaz"; sendl(Char::solid_attack($U::target) } 'A giant remorhaz is waiting for you on the other side\.', '2000n-:ARENA0';
 
-trig { $U::target = "swarm"; CMD::cmd_disable("ARENAASSIST"); Char::ether_attack($U::target) } 'A swarm of midges is waiting for you on the other side\.', '2000n-:ARENA0';
-trig { $U::target = "guardian"; CMD::cmd_disable("ARENAASSIST"); Char::ether_attack($U::target) } 'A dark guardian is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "swarm"; CMD::cmd_disable("ARENAASSIST"); sendl(Char::ether_attack($U::target) } 'A swarm of midges is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "guardian"; CMD::cmd_disable("ARENAASSIST"); sendl(Char::ether_attack($U::target) } 'A dark guardian is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "shadow"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'turn undead' shadow\r\ncast 'turn undead' shadow") } 'A lesser shadow is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "ant"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'turn undead' ant\r\ncast 'turn undead' ant\r\ncast 'turn undead' ant") } 'A giant ethereal ant is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "poltergeist"; CMD::cmd_disable("ARENAASSIST"); sendl("cast 'turn undead' poltergeist\r\ncast 'turn undead' poltergeist\r\ncast 'turn undead' poltergeist") } 'A chaotic poltergeist is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1750,14 +1648,14 @@ trig {
 	}
  } "A floating orb bathes you in blue light refreshing your energy", '2000n-:ARENA0';
 
-trig { Char::solid_attack($U::target); } "You struggle with a giant undead octopus's tentacle, to no effect", '2000n-:ARENA0';
+trig { sendl(Char::solid_attack($U::target); } "You struggle with a giant undead octopus's tentacle, to no effect", '2000n-:ARENA0';
 trig { sendl("cast 'destruction' $U::target"); } " is blasted away", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "You failed to cast 'fireball'", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "^You throw a fireball", '2000n-:ARENA0';
-trig { Char::solid_attack($U::target); } "You failed to $solid_attack", '2000n-:ARENA0';
-trig { Char::solid_attack($U::target); } "Your $spellname hits", '2000n-:ARENA0';
-trig { Char::ether_attack($U::target); } "vanishes in a burning wind", '2000n-:ARENA0';
-trig { Char::ether_attack($U::target); } "You failed to cast 'firewind'", '2000n-:ARENA0';
+trig { sendl(Char::solid_attack($U::target); } "You failed to $solid_attack", '2000n-:ARENA0';
+trig { sendl(Char::solid_attack($U::target); } "Your $spellname hits", '2000n-:ARENA0';
+trig { sendl(Char::ether_attack($U::target); } "vanishes in a burning wind", '2000n-:ARENA0';
+trig { sendl(Char::ether_attack($U::target); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 trig { sendl("cast 'wraithform'"); } "You failed to cast 'wraithform'", '2000n-:ARENA0';
 
 trig { sendl("cast 'turn undead'"); } "bellows in agony", '2000n-:ARENA0';
@@ -1798,12 +1696,15 @@ trig {
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
-  sendl("counter");
+  ##sendl("counter");
+  sendl(Char::before_push);
+  sendl("push button");
 } "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
   setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl(Char::before_push);
   sendl("push button");
 } "(You prepare yourself for a counter-attack)|(You are already prepared to counter-attack)", '2000n-:ARENA0';
 
@@ -1904,7 +1805,9 @@ trig {
         } else {
             if ($U::current_mana > 75) {
                 echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana > 75, push button");
-                sendl("counter");
+                ##sendl("counter");
+                sendl(Char::before_push);
+                sendl("push button");
             } else {
                 echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana < 75, wait for orb");
                 setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
@@ -1919,7 +1822,7 @@ trig {
     CMD::cmd_disable("AUTORESPELL");
     CMD::cmd_enable("CHECKARENAENTER");
     setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-} "- Gladiator Pit Entrance Level Four", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level Zero", '2000n-:ARENA0';
 
 trig {
     sendl("wake");
@@ -1927,7 +1830,7 @@ trig {
     sendl("w");
     sendl("sleep");
     sendl("where");
-} "- Gladiator Pit Entrance Level Five", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level One", '2000n-:ARENA0';
 
 trig {
   my $filename = "./logs/score.txt";

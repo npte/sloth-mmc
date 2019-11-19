@@ -1,7 +1,5 @@
 package Char;
 
-use MUD;
-
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw($my_name $bless $lite $food_container $water_container $holdfrontline);
@@ -23,14 +21,18 @@ $rent_container = "cloak-ancient-sensate-elite-low";
 $mana_container = "mantle-multicolored";
 $main_container = "ornate-bag";
 
-sub ether_attack($) {
-    MUD::sendl("wraithto $_[0]");
-    MUD::sendl("cast 'firewind' $_[0]");
+sub ether_attack {
+    my $target = shift;
+    return "wraithto $target\r\ncast 'firewind' $target";
 }
 
-sub solid_attack($) {
-    MUD::sendl("deathgrip $_[0]");
-    MUD::sendl("strike $_[0]");
+sub solid_attack {
+    my $target = shift;
+    return "deathgrip $target\r\nstrike $target";
+}
+
+sub before_push {
+    return "";
 }
 
 1;
