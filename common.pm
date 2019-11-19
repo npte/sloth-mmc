@@ -1753,15 +1753,19 @@ trig {
 } "(You received)|(Total exp for kill is)", '2000n-:ARENA0';
 
 sub healup {
-    if ($U::current_mana > 75) {
-        $rest = int (($U::max_hp - $U::current_hp) / 200);
-        $gheal = int (($U::max_hp - $U::current_hp - $rest * 200) / 150);
-        $heal = int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
-        echo("restor $rest times");
-        echo("gheal $gheal times");
-        echo("heal $heal times");
-        for (my $i = 0; $i < $rest; $i++) {
-          sendl("cast 'restoration'");
+    echo("cur_hp: $U::current_hp max_hp: $U::max_hp");
+        if ($U::current_mana > 43) {
+            $rest = int (($U::max_hp - $U::current_hp) / 30);
+            #$rest = int (($U::max_hp - $U::current_hp) / 200);
+            $gheal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200) / 150);
+            $heal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
+            echo("restor $rest times");
+            echo("gheal $gheal times");
+            echo("heal $heal times");
+            for (my $i = 0; $i < $rest; $i++) {
+              #sendl("cast 'restoration'");
+              sendl("cast 'cure ser'");
+            }
         }
         for (my $i = 0; $i < $gheal; $i++) {
             sendl("cast 'greater heal'");
