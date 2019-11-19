@@ -1129,7 +1129,7 @@ alias { sendl("cast 'dispel evil' $U::target") }        "det";
 alias { sendl("cast 'acid blast' @_[0]") }                "ab";
 alias { sendl("cast 'acid blast' $U::target") }                "abt";
 alias { sendl("cast 'firewind' @_[0]") }                "fw";
-alias { sendl(Char::ether_attack($U::target) }                "fwt";
+alias { sendl("cast 'firewind' $U::target")}                "fwt";
 alias { sendl("cast 'destruction' @_[0]") }                "dd";
 alias { sendl("cast 'destruction' $U::target") }                "ddt";
 alias { sendl("cast 'web' @_[0]") }                        "web";
