@@ -1753,19 +1753,18 @@ trig {
 } "(You received)|(Total exp for kill is)", '2000n-:ARENA0';
 
 sub healup {
-    echo("cur_hp: $U::current_hp max_hp: $U::max_hp");
-        if ($U::current_mana > 43) {
-            $rest = int (($U::max_hp - $U::current_hp) / 30);
-            #$rest = int (($U::max_hp - $U::current_hp) / 200);
-            $gheal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200) / 150);
-            $heal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
-            echo("restor $rest times");
-            echo("gheal $gheal times");
-            echo("heal $heal times");
-            for (my $i = 0; $i < $rest; $i++) {
-              #sendl("cast 'restoration'");
-              sendl("cast 'cure ser'");
-            }
+	echo("cur_hp: $U::current_hp max_hp: $U::max_hp");
+    if ($U::current_mana > 43) {
+        $rest = int (($U::max_hp - $U::current_hp) / 30);
+        #$rest = int (($U::max_hp - $U::current_hp) / 200);
+        $gheal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200) / 150);
+        $heal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
+        echo("restor $rest times");
+        echo("gheal $gheal times");
+        echo("heal $heal times");
+        for (my $i = 0; $i < $rest; $i++) {
+          #sendl("cast 'restoration'");
+          sendl("cast 'cure ser'");
         }
         for (my $i = 0; $i < $gheal; $i++) {
             sendl("cast 'greater heal'");
@@ -1775,7 +1774,7 @@ sub healup {
         }
         sendl("save");
 	} else {
-	    echo("HealUp: $U::current_mana < 75, wait for orb");
+	    echo("HealUp: $U::current_mana < 43, wait for orb");
 	    setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
 	    sendl("slee");
 	}
