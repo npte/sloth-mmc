@@ -967,6 +967,10 @@ trig {
 } '^Wise utters the words, \'yufzxuie\'', "2000n-:AUTOBLAST";
 
 trig {
+ sendl("flail $U::target");
+} '^You flail your weapon around you in a flurry of motion in', "2000n-:AUTOFLAIL";
+
+trig {
  sendl("kick");
 } '^Your kick hits', "2000n-:AUTOKICK";
 
