@@ -1695,12 +1695,16 @@ trig {
 trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'", '2000n-:ARENA0';
 
 trig {
-  sendl("cast 'fluidity'")
+  #sendl("cast 'fluidity'")
+  setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl(Char::before_push);
+  sendl("push button");
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
   ##sendl("counter");
+  setArenaStatus("ARENA_STATUS_FIGHTING");
   sendl(Char::before_push);
   sendl("push button");
 } "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
