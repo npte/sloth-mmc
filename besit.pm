@@ -28,11 +28,11 @@ sub ether_attack {
 
 sub solid_attack {
     my $target = shift;
-    return "backstab $target\r\nrem stinger\r\nwie halberd\r\nflail $target";
+    return "backstab $target\r\nrem cinq\r\nwie halberd\r\nflail $target";
 }
 
 sub before_push {
-    return "rem halberd\r\nwie stinger";
+    return "rem halberd\r\nwie cinq";
 }
 
 1;
