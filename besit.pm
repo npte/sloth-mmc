@@ -23,7 +23,7 @@ $main_container = "ornate-bag";
 
 sub ether_attack {
     my $target = shift;
-    return "cast 'firewind' $target";
+    return "cast 'fireball' $target";
 }
 
 sub solid_attack {

@@ -1646,9 +1646,9 @@ trig {
 		healup();
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-    sendl("wake");
+        sendl("wake");
 		sendl("sta");
-		healup();
+		sendl("snap");
 	}
  } "A floating orb bathes you in blue light refreshing your energy", '2000n-:ARENA0';
 
@@ -1752,6 +1752,10 @@ trig {
 	healup();
 } "(You received)|(Total exp for kill is)", '2000n-:ARENA0';
 
+trig {
+	healup();
+} "PRONTO!  You snap your fingers", '2000n-:ARENA0';
+
 sub healup {
 	echo("cur_hp: $U::current_hp max_hp: $U::max_hp");
     if ($U::current_mana > 43) {
@@ -1795,7 +1799,7 @@ trig {
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
 		if (($U::max_hp - $U::current_hp) > 100) {
             echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = ($U::max_hp - $U::current_hp) > 100, healup");
-		    healup()
+		    healup();
 		} else {
 		    echo("=== Saving items, ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT: Hp = ($U::max_hp - $U::current_hp) < 100, go to start");
 		    CMD::cmd_disable("AUTORESPELL");
