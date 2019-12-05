@@ -1765,10 +1765,9 @@ trig {
 sub healup {
 	echo("cur_hp: $U::current_hp max_hp: $U::max_hp");
     if ($U::current_mana > 43) {
-        $rest = int (($U::max_hp - $U::current_hp) / 50);
-        #$rest = int (($U::max_hp - $U::current_hp) / 200);
+        $rest = 0;#int (($U::max_hp - $U::current_hp) / 200);
         $gheal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200) / 150);
-        $heal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
+        $heal = int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
         echo("restor $rest times");
         echo("gheal $gheal times");
         echo("heal $heal times");
