@@ -415,10 +415,10 @@ hook {
 	}
 	if (getArenaStatus() ne "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
 		$U::ticks_waiting_for_orb = $U::ticks_waiting_for_orb + 1;
-    if ($U::ticks_waiting_for_orb > 4) {
-  		$U::ticks_waiting_for_orb = 0;
-  		sendl("where");
-  	}
+        if ($U::ticks_waiting_for_orb > 4) {
+  		    $U::ticks_waiting_for_orb = 0;
+  		    sendl("where");
+  	    }
 	}
 
 } "tick";
@@ -1620,6 +1620,7 @@ trig { $U::target = "sinister"; sendl(Char::ether_attack($U::target)); } 'A sini
 trig { $U::target = "warrior"; sendl(Char::ether_attack($U::target)); } 'A phantom warrior is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "fire"; sendl(Char::ether_attack($U::target)); } 'A giant fire serpent is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "crab"; sendl(Char::ether_attack($U::target)); } 'A giant land crab is waiting for you on the other side\.', '2000n-:ARENA0';
+trig { $U::target = "darkling"; sendl(Char::ether_attack($U::target)); } 'A darkling is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "owlbear"; sendl("cast 'acid blast' $U::target\r\ncast 'firewind' $U::target") } 'An owlbear gladiator is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "dragon"; sendl(Char::solid_attack($U::target)); } 'A ferocious green dragon is waiting for you on the other side\.', '2000n-:ARENA0';
 trig { $U::target = "abysmal"; sendl(Char::solid_attack($U::target)); } 'An abysmal darkness is waiting for you on the other side\.', '2000n-:ARENA0';
@@ -1643,7 +1644,7 @@ trig {
 		setArenaStatus("ARENA_STATUS_FIGHTING");
 		sendl("wake");
 		sendl("sta");
-		healup();
+        sendl("snap");
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
         sendl("wake");
@@ -1656,6 +1657,8 @@ trig { sendl(Char::solid_attack($U::target)); } "You struggle with a giant undea
 trig { sendl("cast 'destruction' $U::target"); } " is blasted away", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "You failed to cast 'fireball'", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "^You throw a fireball", '2000n-:ARENA0';
+trig { sendl("cast 'disint' $U::target"); } "You failed to cast 'disintegrate'", '2000n-:ARENA0';
+trig { sendl("cast 'disint' $U::target"); } "is turned into dust", '2000n-:ARENA0';
 #trig { sendl(Char::solid_attack($U::target)); } "You failed to $solid_attack", '2000n-:ARENA0';
 #trig { sendl(Char::solid_attack($U::target)); } "Your $spellname hits", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '2000n-:ARENA0';
@@ -1723,7 +1726,9 @@ trig {
 trig {
     if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
         setArenaStatus("ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT");
+		sendl("l");
         sendl("e");
+        getArenaStatus();
         sendl("pull chain");
         sendl("w");
         sendl("sleep");
@@ -1740,6 +1745,7 @@ trig {
 } "([A-Za-z]+) must wait ([0-9]+) minutes before being allowed back into the arena area", '2000n:CHECKARENAENTER';
 
 trig {
+    getArenaStatus();
 	sendl("|\r\npull chain")
 } "No one is on the waiting list to enter the arena", '2000n:CHECKARENAENTER';
 
@@ -1759,7 +1765,7 @@ trig {
 sub healup {
 	echo("cur_hp: $U::current_hp max_hp: $U::max_hp");
     if ($U::current_mana > 43) {
-        $rest = int (($U::max_hp - $U::current_hp) / 30);
+        $rest = int (($U::max_hp - $U::current_hp) / 50);
         #$rest = int (($U::max_hp - $U::current_hp) / 200);
         $gheal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200) / 150);
         $heal = 0;#int (($U::max_hp - $U::current_hp - $rest * 200 - $gheal * 150) / 100 + 1);
@@ -1768,7 +1774,7 @@ sub healup {
         echo("heal $heal times");
         for (my $i = 0; $i < $rest; $i++) {
           #sendl("cast 'restoration'");
-          sendl("cast 'cure ser'");
+          sendl("cast 'cure cri'");
         }
         for (my $i = 0; $i < $gheal; $i++) {
             sendl("cast 'greater heal'");
@@ -1845,7 +1851,7 @@ trig {
     sendl("w");
     sendl("sleep");
     sendl("where");
-} "- Gladiator Pit Entrance Level Two", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level ((Two)|(Three)|(Four)|(Five)(Six)|(Seven)|(Eight)|(Nine))", '2000n-:ARENA0';
 
 trig {
   my $filename = "./logs/score.txt";
