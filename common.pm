@@ -1697,7 +1697,7 @@ trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'",
 trig {
   #sendl("cast 'fluidity'")
   setArenaStatus("ARENA_STATUS_FIGHTING");
-  sendl(Char::before_push);
+  ##sendl(Char::before_push);
   sendl("push button");
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
@@ -1705,14 +1705,14 @@ trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-
 trig {
   ##sendl("counter");
   setArenaStatus("ARENA_STATUS_FIGHTING");
-  sendl(Char::before_push);
+  ##sendl(Char::before_push);
   sendl("push button");
 } "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
   setArenaStatus("ARENA_STATUS_FIGHTING");
-  sendl(Char::before_push);
+  ##sendl(Char::before_push);
   sendl("push button");
 } "(You prepare yourself for a counter-attack)|(You are already prepared to counter-attack)", '2000n-:ARENA0';
 
@@ -1817,7 +1817,7 @@ trig {
             if ($U::current_mana > 75) {
                 echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana > 75, push button");
                 ##sendl("counter");
-                sendl(Char::before_push);
+                ##sendl(Char::before_push);
                 sendl("push button");
             } else {
                 echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana < 75, wait for orb");
