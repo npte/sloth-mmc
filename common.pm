@@ -1669,7 +1669,8 @@ trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
         CMD::cmd_disable("CHECKARENAENTER");
         setArenaStatus("ARENA_STATUS_BUFFING");
-		sendl("cast 'wall of flesh'");
+		##sendl("cast 'wall of flesh'");
+		sendl("cast 'stone skin'");
 	}
     if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
         sendl("sleep");
@@ -1695,8 +1696,7 @@ trig {
 trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'", '2000n-:ARENA0';
 
 trig {
-  #sendl("cast 'fluidity'")
-  setArenaStatus("ARENA_STATUS_FIGHTING");
+  sendl("cast 'fluidity'");
   ##sendl(Char::before_push);
   sendl("push button");
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
@@ -1764,7 +1764,7 @@ sub healup {
         echo("heal $heal times");
         for (my $i = 0; $i < $rest; $i++) {
           #sendl("cast 'restoration'");
-          sendl("cast 'cure ser'");
+          sendl("cast 'cure nor'");
         }
         for (my $i = 0; $i < $gheal; $i++) {
             sendl("cast 'greater heal'");
