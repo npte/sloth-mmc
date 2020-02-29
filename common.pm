@@ -1833,7 +1833,7 @@ trig {
     CMD::cmd_disable("AUTORESPELL");
     CMD::cmd_enable("CHECKARENAENTER");
     setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-} "- Gladiator Pit Entrance Level One", '2000n-:ARENA0';
+} "- The Newbie Gladitorial Coliseum Entrance", '2000n-:ARENA0';
 
 trig {
     sendl("wake");
