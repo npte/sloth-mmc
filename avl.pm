@@ -10,7 +10,7 @@ require Exporter;    # Обязательная строка для экспорта имен
                 # переменные, массивы и т.д. если необходимо
 {  # Начало блока модуля
 
-$my_name = "avl";
+$my_name = "Avl";
 $bless = "bless";
 $armor = "stone skin";
 $lite = "shield of fa";
