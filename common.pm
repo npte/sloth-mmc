@@ -1662,6 +1662,10 @@ trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '200
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 trig { sendl("cast 'wraithform'"); } "You failed to cast 'wraithform'", '2000n-:ARENA0';
 
+trig { sendl("cast 'disintegrate' $U::target"); } "is turned into dust", '2000n-:ARENA0';
+trig { sendl("cast 'disintegrate' $U::target"); } "You failed to cast 'disintegrate'", '2000n-:ARENA0';
+
+
 trig { sendl("cast 'turn undead'"); } "bellows in agony", '2000n-:ARENA0';
 trig { sendl("cast 'turn undead'"); } "You failed to cast 'turn undead'", '2000n-:ARENA0';
 
