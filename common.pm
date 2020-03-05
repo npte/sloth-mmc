@@ -1669,8 +1669,7 @@ trig {
 	if (getArenaStatus() eq "ARENA_STATUS_WAITING_FOR_NEXT_FIGHT") {
         CMD::cmd_disable("CHECKARENAENTER");
         setArenaStatus("ARENA_STATUS_BUFFING");
-		##sendl("cast 'wall of flesh'");
-		sendl("cast 'stone skin'");
+		sendl("cast 'wall of flesh'");
 	}
     if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
         sendl("sleep");
