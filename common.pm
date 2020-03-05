@@ -1832,7 +1832,7 @@ trig {
     CMD::cmd_disable("AUTORESPELL");
     CMD::cmd_enable("CHECKARENAENTER");
     setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
-} "- The Newbie Gladitorial Coliseum Entrance", '2000n-:ARENA0';
+} "- Gladiator Pit Entrance Level Zero", '2000n-:ARENA0';
 
 trig {
     sendl("wake");
@@ -1841,6 +1841,24 @@ trig {
     sendl("sleep");
     sendl("where");
 } "- Gladiator Pit Entrance Level Two", '2000n-:ARENA0';
+
+trig {
+    sendl("wake");
+    sendl("stand");
+    sendl("w");
+    sendl("sleep");
+    sendl("where");
+} "- Gladiator Pit Entrance Level One", '2000n-:ARENA0';
+
+trig {
+    sendl("wake");
+    sendl("stand");
+    sendl("w");
+    sendl("sleep");
+    sendl("where");
+} "- The Newbie Gladitorial Coliseum Entrance", '2000n-:ARENA0';
+
+
 
 trig {
   my $filename = "./logs/score.txt";
