@@ -293,30 +293,30 @@ trig {
 #                      Триггер на prompt                                #
 #########################################################################
 trig {
- $; = substr($;,0,(index($;,">")+2));
- $_ = substr($_,0,(index($_,">")+2));
- $U::current_hp = $1;
- $U::max_hp = $2;
- $U::current_mana = $3;
- $U::total_exp = $5;
- $U::gold = $6;
- $U::align = $7;
- $U::room = $9;
- $U::ac = $10;
- if ( $U::align == 0 ) { $U::align = "N $U::align" };
- if ( ($U::align >= -3) && ($U::align < 0) ) { $U::align = "e $U::align" };
- if ( $U::align < -3 ) { $U::align = "E $U::align" };
- if ( ($U::align <= 3) && ($U::align > 0) ) { $U::align = "g $U::align" };
- if ( $U::align > 3 ) { $U::align = "G $U::align" };
- $U::total_exp =~ s/,//g; $U::total_exp = cut($U::total_exp);
- $U::gold =~ s/,//g; $U::gold = cut ($U::gold);
- if ( scalar(@currentBuffs) > 0 ) {
- disable("AUTOBUFFCORE"); disable('AUTOBUFF'); rebuff();
- }
-
-#  foreach (@currentBuff) {
-#            echo $_;
-#  }
+	$; = substr($;,0,(index($;,">")+2));
+	$_ = substr($_,0,(index($_,">")+2));
+	$U::current_hp = $1;
+	$U::max_hp = $2;
+	$U::current_mana = $3;
+	$U::total_exp = $5;
+	$U::gold = $6;
+	$U::align = $7;
+	$U::room = $9;
+	$U::ac = $10;
+	if ( $U::align == 0 ) { $U::align = "N $U::align" };
+	if ( ($U::align >= -3) && ($U::align < 0) ) { $U::align = "e $U::align" };
+	if ( $U::align < -3 ) { $U::align = "E $U::align" };
+	if ( ($U::align <= 3) && ($U::align > 0) ) { $U::align = "g $U::align" };
+	if ( $U::align > 3 ) { $U::align = "G $U::align" };
+	$U::total_exp =~ s/,//g; $U::total_exp = cut($U::total_exp);
+	$U::gold =~ s/,//g; $U::gold = cut ($U::gold);
+	if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
+		if ($U::current_hp < 50) {
+			sendl("|");
+			sendl("|");
+			sendl("pull chain");
+		}
+	}
 } '^<(\-?[0-9]+)hp\/([0-9]+)hp ([0-9]+)ma\/[0-9]+ma [0-9]+mv\/[0-9]+mv (\-|[0-9]+)>\[([0-9,]+) ([0-9,]+) ([-+][0-9]+) ([-+][0-9]+) ([a-z]+) ([-]{0,1}[0-9]+\.[0-9]+)\]', '1400n:PROMPT';
 
 trig {
