@@ -27,12 +27,12 @@ $main_container = "ornate-bag";
 
 sub ether_attack {
     my $target = shift;
-    return "cast 'disint' $target";
+    return "cast 'firewind' $target";
 };
 
 sub solid_attack {
     my $target = shift;
-    return "cast 'disint' $target";
+    return "cast 'firewind' $target";
 };
 
 sub before_push {
