@@ -1640,10 +1640,10 @@ trig { sendl("cast 'destruction' $U::target"); } "You failed to cast 'destructio
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
 		$U::ticks_waiting_orb = 0;
-		after_catch();
 		setArenaStatus("ARENA_STATUS_FIGHTING");
 		sendl("wake");
 		sendl("sta");
+		after_catch();
 		healup();
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
