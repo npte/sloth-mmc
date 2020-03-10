@@ -1783,6 +1783,15 @@ sub healup {
 	}
 }
 
+alias  {
+	if (exists $Char::{"before_catch"}) {
+		# Создаем typeglob с именем функции
+		*FUNC = $Char::{"before_catch"};
+		# Вызываем функцию прямо по ссылке из typeglob
+		echo(*FUNC{CODE}->());
+	}
+} "testwear";
+
 sub setArenaStatus {
   my $newStatus = $_[0];
   echo("=== SET NEW STATUS: $newStatus");

@@ -27,17 +27,25 @@ $main_container = "ornate-bag";
 
 sub ether_attack {
     my $target = shift;
-    return "cast 'fireball' $target";
+    return "cast 'firewind' $target";
 };
 
 sub solid_attack {
     my $target = shift;
-    return "cast 'fireball' $target";
+    return "cast 'firewind' $target";
 };
 
 sub before_push {
     return "rem halberd\r\nwie cinq";
 };
+
+sub before_catch {
+	return "eqset wear mana";
+}
+
+sub after_catch {
+	return "eqset wear mana";
+}
 
 1;
 }

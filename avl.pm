@@ -39,5 +39,13 @@ sub before_push {
     return "rem halberd\r\nwie cinq";
 };
 
+sub before_catch {
+	return "eqset wear mana";
+}
+
+sub after_catch {
+	return "eqset wear mana";
+}
+
 1;
 }
