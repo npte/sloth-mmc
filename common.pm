@@ -1842,6 +1842,7 @@ trig {
             } else {
                 echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana < 75, wait for orb");
                 setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
+				before_catch();
                 sendl("sleep");
             }
         }
