@@ -44,7 +44,7 @@ sub before_catch {
 }
 
 sub after_catch {
-	return "eqset wear mana";
+	return "eqset wear spelldam";
 }
 
 1;

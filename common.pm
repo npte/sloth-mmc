@@ -1639,14 +1639,15 @@ trig { sendl("cast 'destruction' $U::target"); } "You failed to cast 'destructio
 
 trig {
 	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
-        	$U::ticks_waiting_orb = 0;
+		$U::ticks_waiting_orb = 0;
+		after_catch();
 		setArenaStatus("ARENA_STATUS_FIGHTING");
 		sendl("wake");
 		sendl("sta");
 		healup();
 	}
 	if (getArenaStatus() eq "ARENA_STATUS_REGEN_IN_NEXT_ROOM_AFTER_FIGHT") {
-    sendl("wake");
+		sendl("wake");
 		sendl("sta");
 		healup();
 	}
@@ -1700,15 +1701,12 @@ trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'",
 
 trig {
   sendl("cast 'fluidity'");
-  ##sendl(Char::before_push);
-  sendl("push button");
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
 trig {
-  ##sendl("counter");
   setArenaStatus("ARENA_STATUS_FIGHTING");
-  ##sendl(Char::before_push);
+  after_catch();
   sendl("push button");
 } "Your body mass slowly changes from solid to gelatinous", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
@@ -1766,8 +1764,8 @@ sub healup {
         echo("gheal $gheal times");
         echo("heal $heal times");
         for (my $i = 0; $i < $rest; $i++) {
-          #sendl("cast 'restoration'");
-          sendl("cast 'cure nor'");
+			#sendl("cast 'restoration'");
+			sendl("cast 'cure nor'");
         }
         for (my $i = 0; $i < $gheal; $i++) {
             sendl("cast 'greater heal'");
@@ -1778,19 +1776,29 @@ sub healup {
         sendl("save");
 	} else {
 	    echo("HealUp: $U::current_mana < 43, wait for orb");
+		before_catch();
 	    setArenaStatus("ARENA_STATUS_FIGHT_AFTER_ORB");
 	    sendl("slee");
 	}
 }
 
-alias  {
+sub before_catch  {
 	if (exists $Char::{"before_catch"}) {
 		# Создаем typeglob с именем функции
 		*FUNC = $Char::{"before_catch"};
 		# Вызываем функцию прямо по ссылке из typeglob
-		echo(*FUNC{CODE}->());
+		sendl(*FUNC{CODE}->());
 	}
-} "testwear";
+};
+
+sub after_catch  {
+	if (exists $Char::{"after_catch"}) {
+		# Создаем typeglob с именем функции
+		*FUNC = $Char::{"after_catch"};
+		# Вызываем функцию прямо по ссылке из typeglob
+		sendl(*FUNC{CODE}->());
+	}
+};
 
 sub setArenaStatus {
   my $newStatus = $_[0];
