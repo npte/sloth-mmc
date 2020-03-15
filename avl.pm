@@ -13,11 +13,11 @@ require Exporter;    # Обязательная строка для экспорта имен
 $my_name = "Avl";
 $bless = "bless";
 $armor = "stone skin";
-$lite = "shield of fa";
+$lite = "sanctuary";
 $food_container = "pack";
 $recall_container = "pack";
-$water_container = "waterskin";
-$holdfrontline = 1;
+$water_container = "barrel";
+$holdfrontline = 0;
 
 $control_container = "red-black-robes";
 $ac_container = "cloak-ancient-sensate-elite-low";
