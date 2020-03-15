@@ -1638,6 +1638,10 @@ trig { sendl("order followers assist Phase"); } "(hates your guts!)|(Your follow
 trig { sendl("cast 'destruction' $U::target"); } "You failed to cast 'destruction'", '2000n-:ARENA0';
 
 trig {
+	sendl("score all");
+ } "A floating orb bathes you in blue light refreshing your energy", '2000n-:ARENA0';
+ 
+ trig {
 	if (getArenaStatus() eq "ARENA_STATUS_FIGHT_AFTER_ORB") {
 		$U::ticks_waiting_orb = 0;
 		setArenaStatus("ARENA_STATUS_FIGHTING");
@@ -1651,7 +1655,8 @@ trig {
 		sendl("sta");
 		healup();
 	}
- } "A floating orb bathes you in blue light refreshing your energy", '2000n-:ARENA0';
+ } "The following bonuses affect you:", '2000n-:ARENA0';
+ 
 
 trig { sendl(Char::solid_attack($U::target)); } "You struggle with a giant undead octopus's tentacle, to no effect", '2000n-:ARENA0';
 trig { sendl("cast 'destruction' $U::target"); } " is blasted away", '2000n-:ARENA0';
@@ -1718,7 +1723,7 @@ trig {
 } "(You prepare yourself for a counter-attack)|(You are already prepared to counter-attack)", '2000n-:ARENA0';
 
 trig {
-	sendl("kill $U::target")
+	sendl("|\r\nkick $U::target")
 } "is mortally wounded, and will die soon, if not aided", '2000n-:ARENA0';
 
 trig {
