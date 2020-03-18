@@ -1,6 +1,4 @@
 # vim: ts=4 syn=perl:
-# $Id: sample.mmcrc,v 1.2 2000/05/16 12:00:22 mike Exp $ # Bookmarks: 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 37,422 # Bookmarks: 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 1,424 # Bookmarks: 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,424; CollapsedSubs: CMD
-# ��������� ������� ������
 
 use Pinger;
 use MUD;
@@ -8,7 +6,6 @@ use Char;
 
 my $mmc = $ENV{MMC} || $ENV{MMC} || $ENV{HOME} || '.';
 
-# �������� ��� � ���� $MMC/<����>.log
 my @Time = localtime;
 $Time[4]=$Time[4]+1;
 my $day=""; if ($Time[3] < 10) { $day = sprintf("%02d",$Time[3]); } else { $day = sprintf("%2d",$Time[3]); }
@@ -1662,12 +1659,9 @@ trig { sendl(Char::solid_attack($U::target)); } "You struggle with a giant undea
 trig { sendl("cast 'destruction' $U::target"); } " is blasted away", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "You failed to cast 'fireball'", '2000n-:ARENA0';
 trig { sendl("cast 'fireball' $U::target"); } "^You throw a fireball", '2000n-:ARENA0';
-#trig { sendl(Char::solid_attack($U::target)); } "You failed to $solid_attack", '2000n-:ARENA0';
-#trig { sendl(Char::solid_attack($U::target)); } "Your $spellname hits", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "vanishes in a burning wind", '2000n-:ARENA0';
 trig { sendl("cast 'firewind' $U::target"); } "You failed to cast 'firewind'", '2000n-:ARENA0';
 trig { sendl("cast 'wraithform'"); } "You failed to cast 'wraithform'", '2000n-:ARENA0';
-
 trig { sendl("cast 'disintegrate' $U::target"); } "is turned into dust", '2000n-:ARENA0';
 trig { sendl("cast 'disintegrate' $U::target"); } "You failed to cast 'disintegrate'", '2000n-:ARENA0';
 
@@ -1718,7 +1712,7 @@ trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-
 
 trig {
   setArenaStatus("ARENA_STATUS_FIGHTING");
-  ##sendl(Char::before_push);
+  sendl(Char::before_push);
   sendl("push button");
 } "(You prepare yourself for a counter-attack)|(You are already prepared to counter-attack)", '2000n-:ARENA0';
 
@@ -1841,7 +1835,7 @@ trig {
             if ($U::current_mana > 75) {
                 echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana > 75, push button");
                 ##sendl("counter");
-                ##sendl(Char::before_push);
+                sendl(Char::before_push);
                 sendl("push button");
             } else {
                 echo("=== Saving items, ARENA_STATUS_FIGHTING: Mana = $U::current_mana < 75, wait for orb");
