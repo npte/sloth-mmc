@@ -308,7 +308,7 @@ trig {
 	$U::total_exp =~ s/,//g; $U::total_exp = cut($U::total_exp);
 	$U::gold =~ s/,//g; $U::gold = cut ($U::gold);
 	if (getArenaStatus() eq "ARENA_STATUS_FIGHTING") {
-		if ($U::current_hp < 50) {
+		if ($U::current_hp < $U::max_hp/10) {
 			sendl("|");
 			sendl("|");
 			sendl("pull chain");
@@ -1699,7 +1699,11 @@ trig {
 trig { sendl("|\r\ncast 'regeneration'"); } "You failed to cast 'regeneration'", '2000n-:ARENA0';
 
 trig {
-  sendl("cast 'fluidity'");
+  #sendl("cast 'fluidity'");
+  setArenaStatus("ARENA_STATUS_FIGHTING");
+  after_catch();
+  sendl(Char::before_push);
+  sendl("push button");
 } "You suddenly feel incredibly healthy and vigorous!", '2000n-:ARENA0';
 trig { sendl("|\r\ncast 'fluidity'"); } "You failed to cast 'fluidity'", '2000n-:ARENA0';
 
@@ -1849,10 +1853,20 @@ trig {
 
 
 trig {
-    CMD::cmd_disable("AUTORESPELL");
-    CMD::cmd_enable("CHECKARENAENTER");
-    setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
+    sendl("wake");
+    sendl("stand");
+    sendl("e");
+    sendl("sleep");
+    sendl("where");
 } "- Gladiator Pit Entrance Level Zero", '2000n-:ARENA0';
+
+trig {
+    sendl("wake");
+    sendl("stand");
+    sendl("w");
+    sendl("sleep");
+    sendl("where");
+} "- Gladiator Pit Entrance Level Three", '2000n-:ARENA0';
 
 trig {
     sendl("wake");
@@ -1863,17 +1877,15 @@ trig {
 } "- Gladiator Pit Entrance Level Two", '2000n-:ARENA0';
 
 trig {
-    sendl("wake");
-    sendl("stand");
-    sendl("w");
-    sendl("sleep");
-    sendl("where");
+    CMD::cmd_disable("AUTORESPELL");
+    CMD::cmd_enable("CHECKARENAENTER");
+    setArenaStatus("ARENA_STATUS_WAITING_FOR_NEXT_FIGHT");
 } "- Gladiator Pit Entrance Level One", '2000n-:ARENA0';
 
 trig {
     sendl("wake");
     sendl("stand");
-    sendl("w");
+    sendl("e");
     sendl("sleep");
     sendl("where");
 } "- The Newbie Gladitorial Coliseum Entrance", '2000n-:ARENA0';

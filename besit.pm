@@ -23,16 +23,16 @@ require Exporter;
 
 	sub ether_attack {
 		my $target = shift;
-		return "cast 'firewind' $target";
+		return "cast 'disint' $target";
 	}
 
 	sub solid_attack {
 		my $target = shift;
-		return "backstab $target\r\nrem cinq\r\nwie halberd\r\nflail $target";
+		return "backstab $target\r\nrem cinq\r\nwie sword-valor\r\nflail $target";
 	}
 
 	sub before_push {
-		return "rem halberd\r\nwie cinq";
+		return "rem sword-valor\r\nwie cinq";
 	}
 
 	sub before_catch {
